@@ -4,6 +4,8 @@ project(DomoticHome)
 
 include_directories(include)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
+
 add_executable( main
   src/main.cpp
   #.cpp files ...
