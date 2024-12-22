@@ -5,7 +5,7 @@
 #include <vector>
 #include <stdexcept>
 #include "Device.h"
-#include "Time.
+#include "Time.h"
 
 class DeviceManager {
 private:
