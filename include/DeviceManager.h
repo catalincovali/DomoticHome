@@ -1,19 +1,22 @@
 //nome: CATALIN COVALI
 #ifndef DEVICEMANAGER_H
 #define DEVICEMANAGER_H
+#include <iostream>
 #include <vector>
+#include <stdexcept>
+#include "Device.h"
 
 class DeviseManager {
 private:
   std::vector<Device*> devices;
   double powerLimit;                // Maximum power that can be absorbed from the grid (3.5 kW)
-  double currentPower;              // Current power usage
+  double powerUsage;                // Current power usage
   std::vector<Device*> devicesON;   // needed for powerLimitPolicy
 
   Time currentTime(00,00);  //?
 
 public:
-  DeviseManager(double maxPower=3.5) : powerLimit{maxPower}, currentPower{0.0} }
+  DeviseManager(double maxPower=3.5);
   Time getCurrentTime() { return currentTime; }
 
   void addDevice(Device* device);
