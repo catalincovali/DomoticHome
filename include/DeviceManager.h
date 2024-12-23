@@ -30,6 +30,8 @@ public:
   void refreshPowerUsage( std::shared_ptr<Device> d );
   std::shared_ptr<Device> findDeviceByName(const std::string& name);
 
+  void showStats(); // not done
+
   // Returns the current total power usage
   double getPowerUsage() const;
 
