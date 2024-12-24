@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
+#include <string>
+#include <cmath>
 #include "Device.h"
 #include "Time.h"
 
@@ -16,6 +18,8 @@ private:
   std::vector< std::shared_ptr<Device> > activeDevices;   // Active devcies, needed for power limit policy
 
   Time currentTime(0,0);    // Simulated current time (initialized to 00:00)
+
+  void addToActiveDevices(std::shared_ptr<Device> d);
 
 public:
   DeviceManager(double maxPower=3.5);
@@ -30,7 +34,8 @@ public:
   void refreshPowerUsage( std::shared_ptr<Device> d );
   std::shared_ptr<Device> findDeviceByName(const std::string& name);
 
-  void showStats(); // not done
+  std::string showStats(std::shared_ptr<Device> d);
+  std::string showAllStats();
 
   // Returns the current total power usage
   double getPowerUsage() const;

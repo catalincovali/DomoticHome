@@ -2,9 +2,13 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
+#include <string>
+#include <cmath>
 #include "DeviceManager.h"
 #include "Device.h"
 #include "Time.h"
+
+
 
 // Initializes DeviceManager with a max power limit
 DeviceManger::DeviceManager(double maxPower) : powerLimit{maxPower}, powerUsage{0.0} {
@@ -13,10 +17,13 @@ DeviceManger::DeviceManager(double maxPower) : powerLimit{maxPower}, powerUsage{
 }
 
 
+
 // Adds a new device to the device list
 void DeviceManager::addDevice(std::shared_ptr<Device> d) {
   devices.push_back(d);
 }
+
+
 
 // Turns on the device if it’s off. Enforces power limit policy if needed
 void DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
@@ -34,10 +41,24 @@ void DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
   if (currentTime != d->getStartTime())
     d->setStartTime(currentTime);
 
-  activeDevices.push_back(d);
-  std::cout << currenttime << " ";
+  DeviceManager::addToActiveDevices(d);
+  std::cout << currentTime << " ";
   d->turnOn();
 }
+
+
+
+// This method ensures that if the maximum threshold is exceeded
+// devices are turned off according to the defined policy
+void DeviceManager::addToActiveDevices(std::shared_ptr<Device> d) {
+  // If the device should remain plugged or produces energy, add it at the beginning of the activeDevices list
+  if (d->getKeepDevicePlugged() && d->getPowerConsumed() > 0)
+    activeDevices.insert( activeDevices.begin(), d );
+  // Else add it at the end of active devices list
+    activeDevices.push_back();
+}
+
+
 
 // Turns off the device if it’s on. Removes from active list and updates power usage.
 void DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
@@ -53,16 +74,19 @@ void DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
     activeDevices.erese(it);
 
   // output message
-  std::cout << currentTime << " ";
+  std::cout << currentTime.toString() << " ";
 
   DeviceManger::refreshPowerUsage(d);
   d->turnOff();
 }
 
 
+
 void DeviceManager::setStartTimer(std::shared_ptr<Device> d, Time time) {
   d->setStartTime(time);
 }
+
+
 
 void DeviceManager::setEndTimer(std::shared_ptr<Device> d, Time time) {
   if (time < currentTime) {
@@ -72,9 +96,13 @@ void DeviceManager::setEndTimer(std::shared_ptr<Device> d, Time time) {
   d->setFinishTime(time);
 }
 
+
+
 void DeviceManager::removeTimer(std::shared_ptr<Device> d) {
   // idk
 }
+
+
 
 // Calculates the power consumed by the device based on the time it has been ON.
 void DeviceManager::refreshPowerUsage(std::shared_ptr<Device> d) {
@@ -85,6 +113,7 @@ void DeviceManager::refreshPowerUsage(std::shared_ptr<Device> d) {
 
   d->updatePowerConsumed(newValue);
 }
+
 
 
 std::shared_ptr<Device> DeviceManager::findDeviceByName(const std::string& name) {
@@ -98,14 +127,45 @@ std::shared_ptr<Device> DeviceManager::findDeviceByName(const std::string& name)
 }
 
 
-void DeviceManager::showStats(std::shared_ptd<Device> d) {
+
+std:string DeviceManager::getStats(std::shared_ptd<Device> d) {
+  // Update before printing infos
   if (d->getIsOn()) {
     DeviceManager::refreshPowerUsage(d);
     d->setStartTimer();
   }
-  std::cout << "[" << currentTime << "]";
-  std::cout << " Il dispositivo "<< d->getName() << "ha consumato" << d->getPowerConsumed() << "kWh";
+
+  if (d->getPowerConsuption() < 0)
+    return " Il dispositivo " + d->getName() + "ha consumato" + d->getPowerConsumed() + "kWh";
+
+  if (d->getPowerConsuption() > 0)
+    return " Il dispositivo " + d->getName() + "ha prodotto" + d->getPowerConsumed() + "kWh";
 }
+
+
+
+std::string DeviceManager::getAllStats() {
+
+  std::string result = "";
+  double powerProduced = currentTime.toMinutes() / 60 * powerLimit;
+
+  for (auto& device : devices) {
+
+    if (device->getPowerConsumption() > 0)
+      powerProduced += device->getPowerConsumed();
+
+    if (device->getPowerConsumption() < 0)
+      powerConsumed += device->getPowerConsumed();
+    result += "  -" + DeviceManager::showStats(device);
+
+  }
+
+  std::cout << currentTime.toString()
+  std::cout << "Attualmente il sistema ha prodotto " << powerProduced <<" kWh ";
+  std::cout << "e consumato " << fabs(powerConsumed) <<" kWh. Nello specifico";
+  std::cout << result;
+}
+
 
 
 double DeviceManager::getPowerUsage() const {
@@ -114,12 +174,13 @@ double DeviceManager::getPowerUsage() const {
 
   // Add power consumption if device is ON
   for (const auto& device : devices)
-    if (device -> isOn())
+    if (device -> isOn() && device->getPowerConsumption < 0)
       powerUsage += device->getPowerConsumption();
 
   // Return the total power usage of all currently ON devices
-  return powerUsage;
+  return fabs(powerUsage);
 }
+
 
 
 // Turns off the last device turned on to stay within power limits.
@@ -129,6 +190,7 @@ void DeviceManager::powerLimitPolicy() {
   activeDevices.pop_back();
   DeviceManager::turnOffDevice(lastDeviceTurnedOn);
 }
+
 
 
 // Simulates time increment and triggers devices' start/finish times.
@@ -150,10 +212,13 @@ void DeviceManager::setTime(Time time) {
 }
 
 
+
 // For debug purposes
 void DeviceManager::resetTime(){
-  currentTime.reset();//[?]
+  currentTime(0.0);
 }
+
+
 
 void DeviceManager::resetTimers(){
   for (const auto& device : devices){
@@ -161,6 +226,8 @@ void DeviceManager::resetTimers(){
     device -> setFinishTime(0,-1);//[?]
   }
 }
+
+
 
 void DeviceManager::resetAll(){
   DeviceManger::resetTime()
