@@ -30,11 +30,12 @@ void DeviceManager::addDevice(std::shared_ptr<Device> d) {
 // If the device should stay plugged in or produce energy, it is added at the beginning
 // of the list to give priority to other devices
 void DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
-  // Check if device is already ON
+  /* Check if device is already ON
   if (d->isOn()) {
     std::cout << " Il dispositivo '" << d->getName() << "è già acceso\n";
     return;
   }
+  */
 
   // If the device's power consumption exceeds the power limit, the policy is applied
   // to turn off other devices in order to stay within the limit
@@ -61,11 +62,12 @@ void DeviceManager::addToActiveDevices(std::shared_ptr<Device> d) {
 // Turns off a device if it is on. Removes it from the active devices list
 // and updates the power consumption accordingly
 void DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
-  // Check if device is already OFF
+  /* Check if device is already OFF
   if (!d->isOn()) {
     std::cout << " Il dispositivo '" << d->getName() << "è già spento\n";
     return;
   }
+  */
 
   // Remove device from active devices list
   auto it = std::find(activeDevices.begin(), activeDevices.end(), d);
