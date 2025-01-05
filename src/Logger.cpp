@@ -15,6 +15,6 @@ Logger::~Logger() {
 
 
 void Logger::log(const std::string output){
-	std::cout << output << std::endl;
-	fileLog << output << std::endl;
+	std::cout << output;
+	fileLog << output;
 }
