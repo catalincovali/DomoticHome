@@ -138,8 +138,11 @@ std::vector<std::string> getAllDevicesUsage() {
 
 
 // Turns on the device, turning off others if needed to stay within the power limit.
-// Returns a vector of names: the last is the turned-on device, others were turned off.
+// Returns a vector of names: the last is the turned-on device, others are turned off.
 std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
+  if (d->isOn())
+    return g->getName();
+
   std::vector<std::string> output;
 
   // Turn off devices until the total power usage is within the limit
