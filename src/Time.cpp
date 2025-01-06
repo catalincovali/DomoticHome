@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include "Time.h"
 
@@ -87,7 +88,7 @@ Time Time::operator +(int t){
 
 
 Time Time::operator -(const Time& t) const{
-	int time1 = this*.toMinutes();
+	int time1 = this->toMinutes();
 	int time2 = t.toMinutes();
 	int totalMin = time1 - time2;
 	int h = totalMin / 60;
@@ -97,7 +98,7 @@ Time Time::operator -(const Time& t) const{
 
 
 
-std::ostream& operator<<(std::ostream& out, const Time& t){
+std::ostream& Time::operator <<(std::ostream& out, const Time& t){
 	std::string h;
 	if( hours < 10 )
 		h = "0" + std::to_string(hours);
