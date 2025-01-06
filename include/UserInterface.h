@@ -1,6 +1,8 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include "Logger.h"
+#include "DeviceManager.h"
 
 class UserInterface{
 	

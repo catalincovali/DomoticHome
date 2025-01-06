@@ -1,10 +1,10 @@
 #include <iostream>
-#include <string>
 #include <vector>
 #include "UserInterface.h"
 #include "DeviceManager.h"
 #include "Device.h"
 #include "Time.h"
+#include "Logger.h"
 
 
 UserInterface::UserInterface(DeviceManager& manager, Logger& logger) : dm{manager}, lgr{logger} {
