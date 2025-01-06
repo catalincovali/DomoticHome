@@ -4,7 +4,7 @@
 #include "Time.h"
 
 Time::Time(int h = 0, int m = 0) : hours{h}, minutes{m} {
-	if(hours < 0 || hours < 23 || minutes <0 || minutes > 59)
+	if(hours < 0 || hours > 23 || minutes <0 || minutes > 59)
 		throw std::invalid_argument("orario non valido\n");
 }
 
