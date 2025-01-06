@@ -12,7 +12,7 @@ class Time{
 			
 	public:
 	
-		Time(int h, int m);
+		Time(int h=0, int m=0);
 		
 		void increment(void);
 		std::string toString(void) const;			//stampa formato [hh:mm]
