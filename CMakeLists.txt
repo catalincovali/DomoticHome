@@ -6,5 +6,9 @@ include_directories(include)
 
 add_executable( main
   src/main.cpp
+  src/Time.cpp
+  src/Device.cpp
+  src/CyclicDevice.cpp
+  src/ManualDevice.cpp
   #.cpp files ...
 )
