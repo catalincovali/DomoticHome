@@ -24,7 +24,7 @@ class Time{
 		bool operator !=(const Time& t) const;
 		Time operator +(int t);						//tempo formito in minuti
 		Time operator -(const Time& t) const;		//sottrazione tra oggetti tempo
-		friend std::ostream& operator<<(std::ostream& out, Time& t);		//stampa formato hh:mm
+		friend std::ostream& operator <<(std::ostream& out, const Time& t);		//stampa formato hh:mm
 };
 
 		Time stringToTime(std::string t);

@@ -98,18 +98,18 @@ Time Time::operator -(const Time& t) const{
 
 
 
-std::ostream& Time::operator <<(std::ostream& out, const Time& t){
+std::ostream& operator <<(std::ostream& out, const Time& t){
 	std::string h;
-	if( hours < 10 )
-		h = "0" + std::to_string(hours);
+	if( t.hours < 10 )
+		h = "0" + std::to_string(t.hours);
 	else
-		h = std::to_string(hours);
+		h = std::to_string(t.hours);
 		
 	std::string m;
-	if( minutes < 10 )
-		m = "0" + std::to_string(minutes);
+	if( t.minutes < 10 )
+		m = "0" + std::to_string(t.minutes);
 	else
-		m = std::to_string(minutes);
+		m = std::to_string(t.minutes);
 		
 	out << h + ":" + m;
 	return out;
