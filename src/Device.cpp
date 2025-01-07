@@ -2,6 +2,8 @@
 #include <iostream>
 #include <stdexcept> 
 
+int Device::currentId=0;
+
 Device::Device(std::string n, double power)
     : name(n), powerConsumption(power), powerConsumed(0), isOn(false), keepDevicePlugged(false) { 
     id = ++currentId;    // Assign a unique ID to the device
