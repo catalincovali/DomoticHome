@@ -51,9 +51,9 @@ void setCommand(std::istringstream& iss, DeviceManager& dm){
 		}
 	}
 	else if( secondW == "time" ){	//"set time ${TIME}"
-		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime() + "\n" );
+		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 		dm.setTime( Time::stringToTime( thirdW ) );
-		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime() + "\n" );
+		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 	}
 	else if( !secondW.empty() ){							//set ${DEVICENAME} ${START} [${STOP}]
 		std::shared_ptr<Device> devPtr = dm.findDeviceByName( secondW );
@@ -66,7 +66,7 @@ void setCommand(std::istringstream& iss, DeviceManager& dm){
 		Device& devRef = *devPtr;
 		lgr.log( dm.getCurrentTime().toString() );
 		lgr.log( " Impostato un timer per il dispositivo " + secondW );
-		lgr.log( " dalle " + devRef.getStartTime() + " alle " + devRef.getFinishTime() + "\n" );
+		lgr.log( " dalle " + devRef.getStart().toString(false) + " alle " + devRef.getFinish().toString(false) + "\n" );
 		
 	}
 	else
@@ -82,17 +82,17 @@ void showCommand(std::istringstream& iss, DeviceManager& dm){
 	if(secondW.empty()){		//"show"
 		std:.vector<std::string> v = dm.getAllDevicesUsage();
 		lgr.log( dm.getCurrentTime().toString() );
-		lgr.log( " Attualmente il sistema ha prodotto " + dm.getGeneratedPower() );
-		lgr.log( "kWh e consumato " + dm.getPowerUsage() + "kWh\n" );
+		lgr.log( " Attualmente il sistema ha prodotto " + std::to_string( dm.getGeneratedPower() ) );
+		lgr.log( "kWh e consumato " + std::to_string( dm.getPowerUsage() ) + "kWh\n" );
 		lgr.log( "Nello specifico:\n" );
 		for(int i=0; i<v.size(); i++)
-			lgr.log( "il dispositivo " + v[i] + " ha consumato " + v[++i] + "kWh\n" );
+			lgr.log( "\t- il dispositivo " + v.at(i) + " ha consumato " + v.at(++i) + "kWh\n" );
 	}
 	else{						//"show ${DeviceName}"
 		std::shared_ptr<Device> devPtr = dm.findDeviceByName( secondW );
 		if(devPtr != nullptr){
 			lgr.log( dm.getCurrentTime().toString() );
-			lgr.log( " il dispositivo " + secondW + " ha attualmente consumato " + dm.getStats( devPtr ) + " kWh\n" ); 
+			lgr.log( " il dispositivo " + secondW + " ha attualmente consumato " + std::to_string( dm.getDeviceUsage( devPtr ) ) + " kWh\n" ); 
 		}
 	}
 }
@@ -105,7 +105,7 @@ void resetCommand(std::istringstream& iss, DeviceManager& dm){
 	
 	if( secondW == "time" ){			//"reset time"
 		dm.resetTime();
-		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime() + "\n" );
+		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 	}
 	else if( secondW == "timers" ){		//"reset timers"
 		lgr.log( dm.getCurrentTime().toString() );
@@ -114,8 +114,8 @@ void resetCommand(std::istringstream& iss, DeviceManager& dm){
 	}
 	else if( secondW == "all" ){		//"reset all"
 		dm.resetAll();
-		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime() + "\n" );
-		lgr.log( "i timers sono stati resettati\n" );
+		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
+		lgr.log( dm.getCurrentTime().toString() + "i timers sono stati resettati\n" );
 	}
 	else
 		lgr.log( "comando non valido\n" );
