@@ -43,12 +43,19 @@ double Device::getPowerConsumption() const {
     return powerConsumption;
 }
 
-void Device::setProgrammedStart(const Time& time){  //DA SISTEMARE
-    //override
+void Device::setProgrammedStart(const Time& time){
+    programmedStart = time;    
 }
 
-void Device::setProgrammedStop(const Time& t){      //DA SISTEMARE
-    //override
+void Device::setProgrammedStop(const Time& t){
+    if(programmedStart<t)  {
+             programmedStop = t;
+             isProgramValid=true;
+     }
+    else {
+        throw std::invalid_argument("programmed stop time must be after programmed start time"); 
+        isProgramValid=false;
+    }
 }
 
 Time Device::getProgrammedStart() const{
