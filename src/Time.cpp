@@ -25,7 +25,7 @@ void Time::increment(void){
 
 
 
-std::string Time::toString(void) const{
+std::string Time::toString(bool withBrackets) const{
 	std::string h;
 	if( hours < 10 )
 		h = "0" + std::to_string(hours);
@@ -38,7 +38,10 @@ std::string Time::toString(void) const{
 	else
 		m = std::to_string(minutes);
 		
-	return 	"[" + h + ":" + m + "]";
+	if(withBrackets)	
+		return 	"[" + h + ":" + m + "]";
+	else
+		return 	h + ":" + m;
 }
 
 
@@ -97,14 +100,14 @@ Time Time::operator -(const Time& t) const{
 }
 
 
-
+//ELIMINARE SE NON SERVE A NESSUNO
 std::ostream& operator <<(std::ostream& out, const Time& t){
 	std::string h;
 	if( t.hours < 10 )
 		h = "0" + std::to_string(t.hours);
 	else
 		h = std::to_string(t.hours);
-		
+
 	std::string m;
 	if( t.minutes < 10 )
 		m = "0" + std::to_string(t.minutes);

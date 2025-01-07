@@ -15,7 +15,7 @@ class Time{
 		Time(int h=0, int m=0);
 		
 		void increment(void);
-		std::string toString(void) const;			//stampa formato [hh:mm]
+		std::string toString(bool withBrackets = true) const;			//stampa formato [hh:mm] se withBrackets è true, e hh:mm se false
 		int toMinutes(void) const;
 		
 		bool operator <(const Time& t) const;
@@ -24,6 +24,8 @@ class Time{
 		bool operator !=(const Time& t) const;
 		Time operator +(int t);						//tempo formito in minuti
 		Time operator -(const Time& t) const;		//sottrazione tra oggetti tempo
+		
+		//ELIMINARE SE NON SERVE A NESSUNO
 		friend std::ostream& operator <<(std::ostream& out, const Time& t);		//stampa formato hh:mm
 };
 
