@@ -39,7 +39,7 @@ public:
     virtual void setProgrammedStart(const Time& time);  //set function of programmedStart
     virtual void setProgrammedStop(const Time& t);      //set function of programmedStop
     Time getProgrammedStart() const;                    //getter function of programmedStart
-    Time getProgrammedstop() const;                     //getter function of programmedStop
+    Time getProgrammedStop() const;                     //getter function of programmedStop
 
     int getId() const;                                  //getter function of device's id
 

@@ -62,7 +62,7 @@ Time Device::getProgrammedStart() const{
     return programmedStart;
 }
 
-Time Device::getProgrammedstop() const{
+Time Device::getProgrammedStop() const{
     return programmedStop;
 }
 

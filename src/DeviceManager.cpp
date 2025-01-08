@@ -217,21 +217,6 @@ std::shared_ptr<Device> DeviceManager::findDeviceByName(const std::string& name)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Simulates the passage of time and updates the state of devices, turning them on or off
 // Enforces the power limit policy by turning off the most recently turned-on device.
 void DeviceManager::setTime(Time time) {
@@ -244,9 +229,9 @@ void DeviceManager::setTime(Time time) {
     for (const auto& device : devices){
       if ( device->getIsProgramValid() && device->getProgrammedStart() == currentTime )
         DeviceManager::turnOnDevice(device);
-   //--------------------------------------------------------------------------------------------------------------------------
-   //   if ( device->getIsProgramValid() && device->getProgrammedStop() == currentTime )
-   //     DeviceManager::turnOffDevice(device);
+ 
+      if ( device->getIsProgramValid() && device->getProgrammedStop() == currentTime )
+        DeviceManager::turnOffDevice(device);
 
       if ( device->getIsStopValid() && device->getStop() == currentTime )
         DeviceManager::turnOffDevice(device);
@@ -261,17 +246,14 @@ void DeviceManager::setTime(Time time) {
 void DeviceManager::resetTime(){
   for (auto& device : devices)
     device -> turnOff();
-  //-----------------------------------------------------------------------------
-  Time time;
+  Time time;  // time = [00:00]
   currentTime = time;
 }
 
 // For debugging: invalidates all device timers.
 void DeviceManager::resetTimers(){
-  for (const auto& device : devices) {
+  for (auto& device : devices) {
     device -> invalidateProgram();
-    //-------------------------------------------------------------------------------------------
-    // device -> 
   }
 }
 
@@ -279,7 +261,7 @@ void DeviceManager::resetTimers(){
 void DeviceManager::resetAll(){
   DeviceManager::resetTime();
   DeviceManager::resetTimers();
+  // reset kWh
+  for (auto& device : devices)
+    device->updatePowerConsumed( -device->getPowerConsumed() );
 }
-
-/*
-*/
