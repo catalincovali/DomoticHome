@@ -15,11 +15,12 @@
 // and handling time-based events like turning devices on and off based on timers or power limits
 class DeviceManager {
 private:
+
   std::vector< std::shared_ptr<Device> > devices;         // Registered devices
   std::vector< std::shared_ptr<Device> > activeDevices;   // Active devcies, needed for power limit policy
   double powerLimit;        // Maximum power that can be absorbed from the grid (3.5 kW)
   double powerUsage;        // Current power usage (kWh)
-  Time currentTime(0,0);    // Simulated current time (initialized to 00:00)
+  Time currentTime;    // Simulated current time (initialized to 00:00)
 
   // Adds a device to the active devices list
   void addToActiveDevices(std::shared_ptr<Device> d);
@@ -32,6 +33,8 @@ private:
   void updateDeviceUsage( std::shared_ptr<Device> d );
 
 public:
+
+
   // Constructor initializes the power limit, and power usage
   // If maxPower is not provided, it defaults to 3.5 kW
   DeviceManager(double maxPower=3.5);
@@ -99,7 +102,6 @@ public:
 
   // Resets both the time and all timers, returning the system to an initial state.
   void resetAll();
-
 };
 
 #endif
