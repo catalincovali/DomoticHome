@@ -17,11 +17,11 @@ class UserInterface{
 	public:
 	
 		UserInterface(DeviceManager& manager, Logger& logger);
-		void exeCommand(const std::string& command);	
+		void exeCommand(const std::string& command);		//cerca nella mappa il comando inserito e chiama una delle 4 helper function
 };
 
 
-void setCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr);
-void showCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr);
-void resetCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr);
-void rmCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr);
+void setCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr);	//gestisce comandi con prima parola = "set"
+void showCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr);	//gestisce comandi con prima parola = "show"
+void resetCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr);	//gestisce comandi con prima parola = "reset"
+void rmCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr);	//gestisce comandi con prima parola = "rmCommand"
