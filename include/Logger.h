@@ -12,8 +12,8 @@ class Logger{
 		
 	public:
 	
-		Logger(const std::string& fileName);
-		void log(const std::string output);	
+		Logger(const std::string& fileName);	//accetta file di testo
+		void log(const std::string output);	//stampa stringa "output" su terminale e fileLog
 		~Logger();
 };
 
