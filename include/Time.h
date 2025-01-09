@@ -15,7 +15,7 @@ class Time{
 		Time(int h=0, int m=0);
 		
 		void increment(void);
-		std::string toString(bool withBrackets = true) const;			//stampa formato [hh:mm] se withBrackets è true, e hh:mm se false
+		std::string toString(bool withBrackets = true) const;		//stampa [hh:mm] se withBrackets è true, e hh:mm se false
 		int toMinutes(void) const;
 		
 		bool operator <(const Time& t) const;

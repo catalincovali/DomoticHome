@@ -13,5 +13,7 @@ add_executable( main
   src/CyclicDevice.cpp
   src/ManualDevice.cpp
   src/DeviceManager.cpp
+  src/UserInterface.cpp
+  src/Logger.cpp
   #.cpp files ...
 )
