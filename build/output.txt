@@ -1,0 +1,14 @@
+comando non valido!
+[00:00] Il dispositivo Frigorifero si e' spento
+[00:00] Il dispositivo Frigorifero si e' acceso
+[00:00] L’orario attuale è 00:00
+[00:00] L’orario attuale è 00:00
+[00:00] L’orario attuale è 00:00
+[00:11] L’orario attuale è 00:11
+[00:11] Attualmente il sistema ha prodotto 0.000000kWh e consumato 0.000000kWh
+Nello specifico:
+	- il dispositivo Impianto fotovoltaico ha consumato 0.000000kWh
+	- il dispositivo Pompa di calore + termostato ha consumato 0.000000kWh
+	- il dispositivo Scaldabagno ha consumato 0.000000kWh
+	- il dispositivo Frigorifero ha consumato 0.000000kWh
+[00:11] il dispositivo Frigorifero ha attualmente consumato 0.000000 kWh
