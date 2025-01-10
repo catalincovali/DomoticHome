@@ -35,7 +35,7 @@ int main() {
   manager.addDevice(device2);
   manager.addDevice(device3);
   manager.addDevice(device4);
-  anager.addDevice(device5);
+  manager.addDevice(device5);
   manager.addDevice(device6);
   manager.addDevice(device7);
   manager.addDevice(device8);

@@ -71,10 +71,10 @@ public:
   void turnOffDevice( std::shared_ptr<Device> d );
 
   //This is used to schedule when the device should start
-  void setStartTimer( std::shared_ptr<Device> d, Time time );
+  void setStartTimer( std::shared_ptr<Device> d, const Time& time );
 
   //This schedules when the device should turn off
-  void setStopTimer( std::shared_ptr<Device> d, Time time );
+  void setStopTimer( std::shared_ptr<Device> d, const Time& time );
 
   //Invalidates scheduled start/end time
   void removeTimer( std::shared_ptr<Device> d );

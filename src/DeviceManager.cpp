@@ -185,13 +185,13 @@ void DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
 
 
 
-void DeviceManager::setStartTimer(std::shared_ptr<Device> d, Time time) {
+void DeviceManager::setStartTimer(std::shared_ptr<Device> d, const Time& time) {
   d->setProgrammedStart(time);
 }
 
 
 
-void DeviceManager::setStopTimer(std::shared_ptr<Device> d, Time time) {
+void DeviceManager::setStopTimer(std::shared_ptr<Device> d, const Time& time) {
   d->setProgrammedStop(time);
 }
 
@@ -221,7 +221,7 @@ std::shared_ptr<Device> DeviceManager::findDeviceByName(const std::string& name)
 // Enforces the power limit policy by turning off the most recently turned-on device.
 void DeviceManager::setTime(Time time) {
   if(time < currentTime)
-    throw std::invalid_argument("[ERROR] Non si puo tornare indietro nel tempo");
+    throw std::invalid_argument("[ERROR] Time cannot go backwards");
 
   while (currentTime != time) {
     currentTime.increment();
