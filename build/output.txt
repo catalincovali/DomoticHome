@@ -1,4 +1,0 @@
-[00:00] L’orario attuale è 00:00
-[00:22] L’orario attuale è 00:22
-comando non valido!
-comando non valido!

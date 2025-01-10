@@ -44,7 +44,7 @@ double Device::getPowerConsumption() const {
 }
 
 void Device::setProgrammedStart(const Time& time){
-    programmedStart = time;    
+    programmedStart = time;   
 }
 
 void Device::setProgrammedStop(const Time& t){

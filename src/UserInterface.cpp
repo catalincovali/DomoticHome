@@ -51,7 +51,6 @@ void setCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr){
 		}
 	}
 	else if( secondW == "time" ){	//"set time ${TIME}"
-		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 		dm.setTime( stringToTime( thirdW ) );
 		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 	}
@@ -85,8 +84,12 @@ void showCommand(std::istringstream& iss, DeviceManager& dm, Logger& lgr){
 		lgr.log( " Attualmente il sistema ha prodotto " + std::to_string( dm.getGeneratedPower() ) );
 		lgr.log( "kWh e consumato " + std::to_string( dm.getPowerUsage() ) + "kWh\n" );
 		lgr.log( "Nello specifico:\n" );
-		for(int i=0; i<v.size(); i++)
-			lgr.log( "\t- il dispositivo " + v.at(i) + " ha consumato " + v.at(++i) + "kWh\n" );
+		
+		for(int i=0; i<v.size(); i++){
+			lgr.log( "\t- il dispositivo " + v.at(i));
+			i++;
+			lgr.log(" ha consumato " + v.at(i) + "kWh\n" );
+		}
 	}
 	else{						//"show ${DeviceName}"
 		std::shared_ptr<Device> devPtr = dm.findDeviceByName( secondW );

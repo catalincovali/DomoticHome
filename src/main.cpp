@@ -14,7 +14,7 @@ int main() {
 
   Time washingMachineCycle(1,50);
   Time dishwasherCycle(3,15);
-  Time electricBlindsCycle(0.1);
+  Time electricBlindsCycle(0,1);
   Time microwaveCycle(0,2);
   Time dryerCycle(1,0);
   Time televisionCycle(1,0);

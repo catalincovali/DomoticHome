@@ -5,16 +5,22 @@
 #include "Time.h"
 
 Time::Time(int h, int m) : hours{h}, minutes{m} {
-	if(hours < 0 || hours > 23 || minutes <0 || minutes > 59)
+	if(hours < 0 || hours > 23 || minutes < 0 || minutes > 59)
 		throw std::invalid_argument("orario non valido\n");
 }
 
 
+Time::Time(const Time& t) {
+    hours = t.hours;
+    minutes = t.minutes;
+}
+
+
 void Time::increment(void){
-	++minutes;
+	minutes++;
 	if( minutes == 60 ){
 		minutes = 0;
-		++hours;
+		hours++;
 	}
 	
 	if( hours == 24 ){
@@ -75,7 +81,7 @@ bool Time::operator ==(const Time& t) const{
 
 
 bool Time::operator !=(const Time& t) const{
-	return this->hours != t.hours && this->minutes != t.minutes;
+	return this->hours != t.hours || this->minutes != t.minutes;
 }
 
 

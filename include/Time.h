@@ -13,6 +13,7 @@ class Time{
 	public:
 	
 		Time(int h=0, int m=0);		//se non forniti imposta 00:00 di default
+		Time(const Time& t);		//costruttore di copia
 		
 		void increment(void);
 		std::string toString(bool withBrackets = true) const;		//stampa [hh:mm] se withBrackets è true, e hh:mm se false
