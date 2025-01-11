@@ -120,7 +120,7 @@ double DeviceManager::getPowerUsage() {
   powerUsage = 0.0;
 
   for (auto& device : devices)
-    if (device -> getIsOn() && device->getPowerConsumption() < 0)
+    if (device->getPowerConsumption() < 0)
       powerUsage += DeviceManager::getDeviceUsage(device);
 
   return powerUsage;
@@ -224,19 +224,19 @@ void DeviceManager::setTime(Time time) {
     throw std::invalid_argument("[ERROR] Time cannot go backwards");
 
   while (currentTime != time) {
-    currentTime.increment();
-    	
     // Check each device for scheduled start/finish times and turns it on or off accordingly
-    for (auto& device : devices){
-      if ( device->getIsProgramValid() && device->getProgrammedStart() == currentTime )
-        DeviceManager::turnOnDevice(device);
+    for (auto& d : devices){
+      if ( d->getIsProgramValid() && d->getProgrammedStart() == currentTime )
+        DeviceManager::turnOnDevice(d);
  
-      if ( device->getIsProgramValid() && device->getProgrammedStop() == currentTime )
-        DeviceManager::turnOffDevice(device);
+      if ( d->getIsProgramValid() && d->getProgrammedStop() == currentTime )
+        DeviceManager::turnOffDevice(d);
 
-      if ( device->getIsStopValid() && device->getStop() == currentTime )
-        DeviceManager::turnOffDevice(device);
+      if ( d->getIsStopValid() && d->getStop() == currentTime )
+        DeviceManager::turnOffDevice(d);
     }
+
+  currentTime.increment();
   }
 }
 

@@ -137,3 +137,29 @@ Nello specifico:
 	- il dispositivo Asciugatrice ha consumato 0.000000kWh
 	- il dispositivo Televisore ha consumato 0.000000kWh
 [06:00] il dispositivo Frigorifero ha attualmente consumato 0.800000 kWh
+[00:00] Attualmente il sistema ha prodotto 0.000000kWh e consumato 0.000000kWh
+Nello specifico:
+	- il dispositivo Impianto fotovoltaico ha consumato 0.000000kWh
+	- il dispositivo Lavatrice ha consumato 0.000000kWh
+	- il dispositivo Lavastoviglie ha consumato 0.000000kWh
+	- il dispositivo Pompa di calore + termostato ha consumato 0.000000kWh
+	- il dispositivo Tapparelle elettriche ha consumato 0.000000kWh
+	- il dispositivo Scaldabagno ha consumato 0.000000kWh
+	- il dispositivo Frigorifero ha consumato 0.000000kWh
+	- il dispositivo Forno a microonde ha consumato 0.000000kWh
+	- il dispositivo Asciugatrice ha consumato 0.000000kWh
+	- il dispositivo Televisore ha consumato 0.000000kWh
+[00:00] Impostato un timer per il dispositivo Frigorifero dalle 00:00 alle 00:00
+[02:01] L’orario attuale è 02:01
+[02:01] Attualmente il sistema ha prodotto 7.000000kWh e consumato 0.000000kWh
+Nello specifico:
+	- il dispositivo Impianto fotovoltaico ha consumato 0.000000kWh
+	- il dispositivo Lavatrice ha consumato 0.000000kWh
+	- il dispositivo Lavastoviglie ha consumato 0.000000kWh
+	- il dispositivo Pompa di calore + termostato ha consumato 0.000000kWh
+	- il dispositivo Tapparelle elettriche ha consumato 0.000000kWh
+	- il dispositivo Scaldabagno ha consumato 0.000000kWh
+	- il dispositivo Frigorifero ha consumato 0.400000kWh
+	- il dispositivo Forno a microonde ha consumato 0.000000kWh
+	- il dispositivo Asciugatrice ha consumato 0.000000kWh
+	- il dispositivo Televisore ha consumato 0.000000kWh
