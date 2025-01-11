@@ -109,7 +109,7 @@ double DeviceManager::getGeneratedPower() {
 double DeviceManager::sumDeviceKw() {
   double output;
   for (auto& d : devices)
-    output =+ d->getPowerConsumption();
+    output += d->getPowerConsumption();
   return output;
 }
 
@@ -227,7 +227,7 @@ void DeviceManager::setTime(Time time) {
     currentTime.increment();
     	
     // Check each device for scheduled start/finish times and turns it on or off accordingly
-    for (const auto& device : devices){
+    for (auto& device : devices){
       if ( device->getIsProgramValid() && device->getProgrammedStart() == currentTime )
         DeviceManager::turnOnDevice(device);
  
