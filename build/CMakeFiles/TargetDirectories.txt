@@ -1,3 +1,0 @@
-/home/catalin/DomoticHome/build/CMakeFiles/main.dir
-/home/catalin/DomoticHome/build/CMakeFiles/edit_cache.dir
-/home/catalin/DomoticHome/build/CMakeFiles/rebuild_cache.dir
