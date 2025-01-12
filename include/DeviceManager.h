@@ -79,20 +79,15 @@ public:
   //Invalidates scheduled start/end time
   void removeTimer( std::shared_ptr<Device> d );
 
-
-
-
-
-
-
-
   // Finds and returns a device by its name. Returns nullptr if not found
   std::shared_ptr<Device> findDeviceByName(const std::string& name) const;
 
-
   // Simulates the passage of time by incrementing the current time by one minute
   // Updates device states and handles time-based events.
-  void setTime(Time time);
+  // Returns a vector { 1 , name1 , 0 , name2 , ... }
+  // - A string representing the action ("1" for turning on, "0" for turning off).
+  // - The name of the device that was turned on or off.
+  std::vector<std::string> setTime(Time time);
 
   // For debugging: resets the time and turns off all devices.
   void resetTime();
