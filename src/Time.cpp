@@ -90,6 +90,8 @@ Time Time::operator +(int t){
 	int totalMinutes = this->minutes + t;
 	int newHours = this->hours + (totalMinutes / 60);
 	int newMinutes = totalMinutes % 60;
+	if( newHours > 23 )
+		newHours = newHours % 24;
 	
 	return Time(newHours, newMinutes);
 }
@@ -129,7 +131,7 @@ std::ostream& operator <<(std::ostream& out, const Time& t){
 Time stringToTime(std::string t){
 	std::stringstream ss(t);
 	char separator;
-	int h, m;
+	int h, m = 0;
 	ss >> h >> separator >> m;
 	return Time(h, m);
 }
