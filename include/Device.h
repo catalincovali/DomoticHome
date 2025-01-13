@@ -14,7 +14,8 @@ protected:
     bool keepDevicePlugged;         // reports which devices must remain on
     Time programmedStart;           // programmed Time when the device turns on
     Time programmedStop;            // programmed Time when the device turns off
-    bool isProgramValid;            //reports if the program is valid
+    bool isProgrammedStartValid;    //reports if programmedStart is valid
+    bool isProgrammedStopValid;     //reports if programmedStop is valid
     bool isStartValid=false;        //reports whether the start time is valid
     bool isStopValid=false;         //reports whether the end time is valid
     Time start;                     // Start time
@@ -46,8 +47,9 @@ public:
     std::string getName() const;                        //getter function of device's name
 
     void invalidateProgram();                           //sets isProgramValid to false
-    bool getIsProgramValid() const;                     //getter function of isProgramValid
-    
+    bool getIsProgrammedStartValid() const;             //getter function of isProgrammedStartValid
+    bool getIsProgrammedStopValid() const;              //getter function of isProgrammedStopValid
+
     Time getStart() const;                              //getter function of start
     Time getStop() const;                               //getter function of stop
     bool getIsStartValid() const;                       //getter function of isStartValid
