@@ -56,7 +56,14 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 		std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
 		if(devPtr != nullptr){
 			std::vector<std::string> v = dm.turnOnDevice( devPtr );
-			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(v.size() -1) + "' si e' acceso\n" );
+			
+			if( !v.empty() ){
+				for(int i=0; i < v.size()-1; i++)
+					lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(i) + "' si e' spento\n" );
+				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(v.size() -1) + "' si e' acceso\n" );
+			}
+			else
+				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' acceso\n" );
 		}
 	}
 	else if( words.at( words.size()-1 ) == "off" ){											//"set ${DEVICENAME} off"_____________________________________
@@ -92,7 +99,7 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 	}
 	
-	else if( words.size() != 0 ){															//"set ${DEVICENAME}" ${START} [${STOP}] _____________________
+	else if( !words.empty() ){															//"set ${DEVICENAME}" ${START} [${STOP}] _____________________
 			std::shared_ptr<Device> devPtr;
 			std::string deviceName;
 			//se penultima parola è un orario: set ${DEVICENAME} ${START} ${STOP}
@@ -149,8 +156,14 @@ void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 		lgr.log( "Nello specifico:\n" );
 		
 		for(int i=0; i<v.size(); i++){
-			lgr.log( "\t- il dispositivo '" + v.at(i));
-			lgr.log("' ha consumato " + v.at(++i) + "kWh\n" );
+			if ( v.at(i) == "Impianto fotovoltaico" ){
+				lgr.log( "\t- il dispositivo '" + v.at(i));
+				lgr.log("' ha prodotto " + v.at(++i) + "kWh\n" );
+			}
+			else{
+				lgr.log( "\t- il dispositivo '" + v.at(i));
+				lgr.log("' ha consumato " + v.at(++i) + "kWh\n" );
+			}	
 		}
 	}
 	else{																					//"show ${DeviceName}"_____________________________________
@@ -164,7 +177,10 @@ void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 		std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
 		if(devPtr != nullptr){
 			lgr.log( dm.getCurrentTime().toString() );
-			lgr.log( " il dispositivo '" + deviceName + "' ha attualmente consumato " + std::to_string( dm.getDeviceUsage( devPtr ) ) + " kWh\n" ); 
+			if( deviceName == "Impianto fotovoltaico" )
+				lgr.log( " il dispositivo '" + deviceName + "' ha attualmente prodotto " + std::to_string( dm.getDeviceUsage( devPtr ) ) + " kWh\n" ); 
+			else	
+				lgr.log( " il dispositivo '" + deviceName + "' ha attualmente consumato " + std::to_string( dm.getDeviceUsage( devPtr ) ) + " kWh\n" ); 
 		}
 	}
 }

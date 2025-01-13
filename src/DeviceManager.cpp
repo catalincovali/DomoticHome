@@ -171,7 +171,7 @@ std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
 // Turns off a device if it is on. Removes it from the active devices list
 // and updates the power consumption accordingly
 void DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
-  if (!d->getIsOn()
+  if (!d->getIsOn())
     return;
   
 
@@ -238,7 +238,7 @@ std::vector<std::string> DeviceManager::setTime(Time time) {
   while (currentTime != time) {
     // Check each device for scheduled start/finish times and turns it on or off accordingly
     for (auto& d : devices){
-      if ( d->isOn() && currentTime == d->getProgrammedStart())
+      if ( d->getIsOn() && currentTime == d->getProgrammedStart())
         d->invalidateProgram();
 
       if ( d->getIsProgrammedStartValid() && d->getProgrammedStart() == currentTime ) {
