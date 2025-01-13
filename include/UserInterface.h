@@ -18,14 +18,15 @@ class UserInterface{
 		
 	public:
 	
-		UserInterface(DeviceManager& manager, Logger& logger);
-		void exeCommand(const std::string& command);		//cerca nella mappa il comando inserito e chiama una delle 4 helper function
+		UserInterface( DeviceManager& manager, Logger& logger );
+		void exeCommand( const std::string& command );		//cerca nella mappa il comando inserito e chiama una delle 4 helper function
 };
 
 
-void setCommand(std::vector<std::string> words, DeviceManager& dm, Logger& lgr);	//gestisce comandi con prima parola = "set"
-void showCommand(std::vector<std::string> words, DeviceManager& dm, Logger& lgr);	//gestisce comandi con prima parola = "show"
-void resetCommand(std::vector<std::string> words, DeviceManager& dm, Logger& lgr);	//gestisce comandi con prima parola = "reset"
-void rmCommand(std::vector<std::string> words, DeviceManager& dm, Logger& lgr);	//gestisce comandi con prima parola = "rmCommand"
+void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comandi con prima parola = "set"
+void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comandi con prima parola = "show"
+void resetCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comandi con prima parola = "reset"
+void rmCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comandi con prima parola = "rmCommand"
 
-bool containsNumber(const std::string& s);		//controlla se in una stringa sono presenti numeri
+bool containsNumber( const std::string& s) ;		//controlla se in una stringa sono presenti numeri
+
