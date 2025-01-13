@@ -6,8 +6,13 @@ CyclicDevice::CyclicDevice(std::string n, double power, Time cycleDuration)
 
 void CyclicDevice::setProgrammedStart(const Time& time) {
     programmedStart = time;
+    isProgrammedStartValid=true;
     programmedStop=programmedStart+cycleDuration.toMinutes();
-    isProgramValid=true;
+      if(programmedStop<programmedStart){
+         isProgrammedStopValid=false;
+         return;
+        }
+    isProgrammedStopValid=true;
 }
 
 void CyclicDevice::setProgrammedStop(const Time& time){
