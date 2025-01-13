@@ -1,5 +1,4 @@
 #include "Device.h"
-#include <iostream>
 #include <stdexcept> 
 
 int Device::currentId=0;
@@ -10,12 +9,12 @@ Device::Device(std::string n, double power)
 }
 
 void Device::turnOn() {
-    if (isOn) return;     //DA SISTEMARE
+    if (isOn) return;
         isOn = true;
 }
 
 void Device::turnOff() {
-    if (!isOn) return;     //DA SISTEMARE
+    if (!isOn) return;
         isOn = false;
 }
 
@@ -45,16 +44,17 @@ double Device::getPowerConsumption() const {
 
 void Device::setProgrammedStart(const Time& time){
     programmedStart = time;   
+    isProgrammedStartValid=true;
 }
 
 void Device::setProgrammedStop(const Time& t){
     if(programmedStart<t)  {
              programmedStop = t;
-             isProgramValid=true;
+             isProgrammedStopValid=true;
      }
     else {
+        isProgrammedStopValid=false;
         throw std::invalid_argument("programmed stop time must be after programmed start time"); 
-        isProgramValid=false;
     }
 }
 
@@ -75,11 +75,17 @@ int Device::getId() const{
  }
 
  void Device::invalidateProgram(){
-     isProgramValid=false;
+     isProgrammedStartValid=false;
+     isProgrammedStopValid=false;
  }
  
-bool Device::getIsProgramValid() const{
-    return isProgramValid;
+bool Device::getIsProgrammedStopValid() const{
+    return isProgrammedStopValid;
+}
+
+
+bool Device::getIsProgrammedStartValid() const{
+    return isProgrammedStartValid;
 }
 
 Time Device::getStart() const{
