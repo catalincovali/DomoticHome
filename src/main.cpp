@@ -30,7 +30,7 @@ int main() {
   std::shared_ptr<Device> device9 = std::make_shared<CyclicDevice>("Asciugatrice", -0.5, deviceCycle9);
   std::shared_ptr<Device> device10 = std::make_shared<CyclicDevice>("Televisore", -0.2, deviceCycle10);
 
-  DeviceManager manager;
+  DeviceManager manager();
   manager.addDevice(device1);
   manager.addDevice(device2);
   manager.addDevice(device3);
@@ -50,19 +50,34 @@ int main() {
   // Create a UserInterface object to handle user commands
   UserInterface user(manager, log);
 
-  // Dysplay available commands
-  std::cout<<"\n\n\n  MENU: ('Q' to quit)\n\n";
-  std::cout<<"  - set ${DEVICENAME} on\n";
-  std::cout<<"  - set ${DEVICENAME} off\n";
-  std::cout<<"  - set ${DEVICENAME} ${START}\n";
-  std::cout<<"  - set ${DEVICENAME} ${START} ${STOP}\n";
-  std::cout<<"  - rm ${DEVICENAME}\n";
-  std::cout<<"  - show\n";
-  std::cout<<"  - show ${DEVICENAME}\n";
-  std::cout<<"  - set time ${TIME}\n";
-  std::cout<<"  - reset time\n";
-  std::cout<<"  - reset times\n";
-  std::cout<<"  - reset all\n\n";
+
+
+
+
+
+  std::cout<<"\n\n";
+  std::cout<<"        ____                        __  _      __  __                   \n";
+  std::cout<<"       / __ \\____  ____ ___  ____  / /_(_)____/ / / /___  ____ ___  ___\n"; 
+  std::cout<<"      / / / / __ \\/ __ `__ \\/ __ \\/ __/ / ___/ /_/ / __ \\/ __ `__ \\/ _ \\\n";
+  std::cout<<"     / /_/ / /_/ / / / / / / /_/ / /_/ / /__/ __  / /_/ / / / / / /  __/\n";
+  std::cout<<"    /_____/\\____/_/ /_/ /_/\\____/\\__/_/\\___/_/ /_/\\____/_/ /_/ /_/\\___/\n\n"; 
+
+  std::cout<<"\n\n";
+  std::cout<<"+-----------------------------------------+-------------------------------------+\n";
+  std::cout<<"|  MENU: ('Q' to quit)                    |   DEVICES:                          |\n";
+  std::cout<<"|                                         |                                     |\n";
+  std::cout<<"|  - set ${DEVICENAME} on                 |   - Impianto fotovoltaico           |\n";
+  std::cout<<"|  - set ${DEVICENAME} off                |   - Lavatrice                       |\n";
+  std::cout<<"|  - set ${DEVICENAME} ${START}           |   - Lavastoviglie                   |\n";
+  std::cout<<"|  - set ${DEVICENAME} ${START} ${STOP}   |   - Pompa di calore + termostato    |\n";
+  std::cout<<"|  - rm ${DEVICENAME}                     |   - Tapparelle elettriche           |\n";
+  std::cout<<"|  - show                                 |   - Scaldabagno                     |\n";
+  std::cout<<"|  - show ${DEVICENAME}                   |   - Frigorifero                     |\n";
+  std::cout<<"|  - set time ${TIME}                     |   - Forno a microonde               |\n";
+  std::cout<<"|  - reset time                           |   - Asciugtrice                     |\n";
+  std::cout<<"|  - reset times                          |   - Televisore                      |\n";
+  std::cout<<"|  - reset all                            |                                     |\n";
+  std::cout<<"+-----------------------------------------+-------------------------------------+\n\n";
 
   
   std::string prompt = "";

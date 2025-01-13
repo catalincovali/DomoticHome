@@ -23,5 +23,11 @@ void CyclicDevice::setStart(const Time& st) {
     start=st;
     isStartValid=true;
     stop=start+cycleDuration.toMinutes();
+    
+    if (stop < start){
+      isStopValid=false;
+      return;
+    }
+
     isStopValid=true;
 }

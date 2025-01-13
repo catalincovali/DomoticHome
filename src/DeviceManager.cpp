@@ -232,20 +232,23 @@ std::vector<std::string> DeviceManager::setTime(Time time) {
   while (currentTime != time) {
     // Check each device for scheduled start/finish times and turns it on or off accordingly
     for (auto& d : devices){
-      if ( d->getIsProgramValid() && d->getProgrammedStart() == currentTime ) {
+      if ( d->getIsProgrammedStartValid() && d->getProgrammedStart() == currentTime ) {
         output.push_back("1");  // Indicating the device is being turned on
+        output.push_back(currentTime.toString(false));
         output.push_back(d->getName());
         DeviceManager::turnOnDevice(d);
       }
  
-      if ( d->getIsProgramValid() && d->getProgrammedStop() == currentTime ) {
+      if ( d->getIsProgrammedStopValid() && d->getProgrammedStop() == currentTime ) {
         output.push_back("0");  // Indicating the device is being turned off
+        output.push_back(currentTime.toString(false));
         output.push_back(d->getName());
         DeviceManager::turnOffDevice(d);
       }
 
       if ( d->getIsStopValid() && d->getStop() == currentTime ) {
         output.push_back("0");  // Indicating the device is being turned off  
+        output.push_back(currentTime.toString(false));
         output.push_back(d->getName());
         DeviceManager::turnOffDevice(d);
       }
