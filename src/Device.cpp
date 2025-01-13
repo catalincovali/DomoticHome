@@ -11,11 +11,14 @@ Device::Device(std::string n, double power)
 void Device::turnOn() {
     if (isOn) return;
         isOn = true;
+
 }
 
 void Device::turnOff() {
     if (!isOn) return;
         isOn = false;
+  
+        isStartValid = false; //--------
 }
 
 bool Device::getIsOn() const {

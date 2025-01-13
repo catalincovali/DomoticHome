@@ -39,8 +39,8 @@ void DeviceManager::addDevice(std::shared_ptr<Device> d) {
 // This method ensures that if the maximum threshold is exceeded
 // devices are turned off according to the defined policy
 void DeviceManager::addToActiveDevices(std::shared_ptr<Device> d) {
-  // If the device should remain plugged or produces energy, add it at the beginning of the activeDevices list
-  if (d->getKeepDevicePlugged() && d->getPowerConsumed() > 0)
+  // If the device should remain plugged, add it at the beginning of the activeDevices list
+  if (d->getKeepDevicePlugged())
     activeDevices.insert( activeDevices.begin(), d );
   // Else add it at the end of active devices list
   activeDevices.push_back(d);
@@ -107,10 +107,11 @@ double DeviceManager::getGeneratedPower() {
 
 
 double DeviceManager::sumDeviceKw() {
-  double output;
+  double output = 0.0;
   for (auto& d : devices)
-    output += d->getPowerConsumption();
-  return output;
+    if (d->getIsOn())
+      output += d->getPowerConsumption();
+  return fabs(output);
 }
 
 
@@ -146,13 +147,12 @@ std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
   std::vector<std::string> output;
 
   if (d->getIsOn()) {
-    output.push_back( d->getName() );
-    return output;
+    return {};
   }
 
   // Turn off devices until the total power usage is within the limit
   if(d->getPowerConsumption() < 0)
-    while ( DeviceManager::sumDeviceKw() - d->getPowerConsumption() > powerLimit)
+    while ( DeviceManager::sumDeviceKw() + fabs(d->getPowerConsumption()) > powerLimit)
       output.push_back( DeviceManager::powerLimitPolicy() );// Turn off a device and save its name
 
   DeviceManager::addToActiveDevices(d);
@@ -171,16 +171,22 @@ std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
 // Turns off a device if it is on. Removes it from the active devices list
 // and updates the power consumption accordingly
 void DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
-  if (!d->getIsOn())
+  if (!d->getIsOn()
     return;
+  
 
   // Remove device from active devices list
   auto it = std::find(activeDevices.begin(), activeDevices.end(), d);
   if (it != activeDevices.end())
     activeDevices.erase(it);
 
+  // When the device is turned off during its cycle
+  if (d->getIsProgrammedStartValid() && d->getProgrammedStart() < currentTime)
+    d->invalidateProgram();
+
   DeviceManager::updateDeviceUsage(d);
   d->turnOff();
+  
 }
 
 
@@ -232,6 +238,9 @@ std::vector<std::string> DeviceManager::setTime(Time time) {
   while (currentTime != time) {
     // Check each device for scheduled start/finish times and turns it on or off accordingly
     for (auto& d : devices){
+      if ( d->isOn() && currentTime == d->getProgrammedStart())
+        d->invalidateProgram();
+
       if ( d->getIsProgrammedStartValid() && d->getProgrammedStart() == currentTime ) {
         output.push_back("1");  // Indicating the device is being turned on
         output.push_back(currentTime.toString(false));

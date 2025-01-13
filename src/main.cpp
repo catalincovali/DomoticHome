@@ -30,7 +30,7 @@ int main() {
   std::shared_ptr<Device> device9 = std::make_shared<CyclicDevice>("Asciugatrice", -0.5, deviceCycle9);
   std::shared_ptr<Device> device10 = std::make_shared<CyclicDevice>("Televisore", -0.2, deviceCycle10);
 
-  DeviceManager manager();
+  DeviceManager manager;
   manager.addDevice(device1);
   manager.addDevice(device2);
   manager.addDevice(device3);
@@ -55,7 +55,7 @@ int main() {
 
 
 
-  std::cout<<"\n\n";
+  std::cout<<"\n";
   std::cout<<"        ____                        __  _      __  __                   \n";
   std::cout<<"       / __ \\____  ____ ___  ____  / /_(_)____/ / / /___  ____ ___  ___\n"; 
   std::cout<<"      / / / / __ \\/ __ `__ \\/ __ \\/ __/ / ___/ /_/ / __ \\/ __ `__ \\/ _ \\\n";
