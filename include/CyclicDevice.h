@@ -1,7 +1,6 @@
 #ifndef CYCLICDEVICE_H
 #define CYCLICDEVICE_H
 #include "Device.h"
-#include "Time.h"
 
 class CyclicDevice : public Device {
 private:
