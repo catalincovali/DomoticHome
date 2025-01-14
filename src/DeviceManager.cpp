@@ -168,8 +168,8 @@ std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
   d->setStart(currentTime);
 
   // Add the name of the newly turned-on device to the output vector
-  output.push_back("0");
-  output.push_back(currentTime.toString());
+  output.push_back("1");
+  output.push_back(currentTime.toString(false));
   output.push_back( d->getName() );
   return output;
 }
@@ -246,11 +246,7 @@ std::vector<std::string> DeviceManager::setTime(MyTime time) {
         d->invalidateProgram();
 
       if ( d->getIsProgrammedStartValid() && d->getProgrammedStart() == currentTime ) {
-        output.push_back("1");  // Indicating the device is being turned on
-        output.push_back(currentTime.toString(false));
-        output.push_back(d->getName());
-        std::vector<std::string> turnOnResult = DeviceManager::turnOnDevice(d);
-        output.insert( output.end(), turnOnResult.begin(), turnOnResult.end() );
+        output = DeviceManager::turnOnDevice(d);
       }
  
       if (	(d->getIsProgrammedStopValid() && d->getProgrammedStop() == currentTime) || 

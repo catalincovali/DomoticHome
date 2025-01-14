@@ -1,0 +1,42 @@
+[00:00] Attualmente il sistema ha prodotto 0.000000kWh e consumato 0.000000kWh
+Nello specifico:
+	- il dispositivo 'Impianto fotovoltaico' ha prodotto 0.000000kWh
+	- il dispositivo 'Lavatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Lavastoviglie' ha consumato 0.000000kWh
+	- il dispositivo 'Pompa di calore + termostato' ha consumato 0.000000kWh
+	- il dispositivo 'Tapparelle elettriche' ha consumato 0.000000kWh
+	- il dispositivo 'Scaldabagno' ha consumato 0.000000kWh
+	- il dispositivo 'Frigorifero' ha consumato 0.000000kWh
+	- il dispositivo 'Forno a microonde' ha consumato 0.000000kWh
+	- il dispositivo 'Asciugatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Televisore' ha consumato 0.000000kWh
+[00:00] Impostato un timer per il dispositivo 'Pompa di calore + termostato' dalle 03:00 alle 05:00
+[03:00] Il dispositivo 'Pompa di calore + termostato' si e' acceso
+[04:00] L’orario attuale è 04:00
+[04:00] Il dispositivo 'Pompa di calore + termostato' si e' spento
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[07:00] L’orario attuale è 07:00
+[07:00] il dispositivo 'Lavatrice' ha attualmente consumato 3.666667 kWh
+[07:00] Impostato un timer per il dispositivo 'Frigorifero' dalle 08:00 alle 09:30
+[08:00] Il dispositivo 'Frigorifero' si e' acceso
+[09:00] L’orario attuale è 09:00
+[09:00] Rimosso il timer dal dispositivo 'Frigorifero'
+[10:00] L’orario attuale è 10:00
+[10:00] Impostato un timer per il dispositivo 'Televisore' dalle 12:00 alle 13:00
+[10:00] i timers sono stati resettati
+[14:00] L’orario attuale è 14:00
+[00:00] L’orario attuale è 00:00
+[00:00] i timers sono stati resettati
+[00:00] Attualmente il sistema ha prodotto 0.000000kWh e consumato 0.000000kWh
+Nello specifico:
+	- il dispositivo 'Impianto fotovoltaico' ha prodotto 0.000000kWh
+	- il dispositivo 'Lavatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Lavastoviglie' ha consumato 0.000000kWh
+	- il dispositivo 'Pompa di calore + termostato' ha consumato 0.000000kWh
+	- il dispositivo 'Tapparelle elettriche' ha consumato 0.000000kWh
+	- il dispositivo 'Scaldabagno' ha consumato 0.000000kWh
+	- il dispositivo 'Frigorifero' ha consumato 0.000000kWh
+	- il dispositivo 'Forno a microonde' ha consumato 0.000000kWh
+	- il dispositivo 'Asciugatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Televisore' ha consumato 0.000000kWh

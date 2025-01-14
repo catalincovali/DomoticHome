@@ -74,13 +74,20 @@ void handleSetOn( std::vector<std::string>& words, DeviceManager& dm, Logger& lg
 		
 	std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
 	if(devPtr != nullptr){
-		std::vector<std::string> v = dm.turnOnDevice( devPtr );
+		std::vector<std::string> deviceList = dm.turnOnDevice( devPtr );
+		//device list e' un vettore es: {0 o 1, tempo, nome Dispositivo, ...}
 			
-		if( !v.empty() ){	//se dispositivo è spento
-			for( int i=0; i < v.size()-1; i++ )		//se soglia kW raggiunta vengono spenti gli ultimi device accesi
-				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(i) + "' si e' spento\n" );
-			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(v.size() -1) + "' si e' acceso\n" );
-			//l'ultimo elemento del vettore è quello da accendere, quelli prima (se presenti) da spegnere
+		if( !deviceList.empty() ){	//se dispositivo è spento
+			for( int i=0; i < deviceList.size(); i++ ){		//se soglia kW raggiunta vengono spenti gli ultimi device accesi
+				if( deviceList.at(i) == "0" ){				//se 0 il dispositivo si è spento
+					MyTime t = stringToTime( deviceList.at(++i) );
+					lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' spento\n" ); 
+				}
+				if( deviceList.at(i) == "1" ){				//se 1 il dispositivo si è acceso
+					MyTime t = stringToTime( deviceList.at(++i) );
+					lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' acceso\n" ); 
+				}
+			}
 		}
 		else
 			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' acceso\n" );
@@ -105,6 +112,8 @@ void handleSetOff( std::vector<std::string>& words, DeviceManager& dm, Logger& l
 			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' spento\n" );
 	}
 }
+
+
 
 
 
