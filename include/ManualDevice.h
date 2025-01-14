@@ -1,3 +1,4 @@
+//name:Gavrilovska Kristina
 #ifndef MANUALDEVICE_H
 #define MANUALDEVICE_H
 #include "Device.h"
