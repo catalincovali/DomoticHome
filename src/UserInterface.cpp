@@ -17,7 +17,7 @@ UserInterface::UserInterface( DeviceManager& manager, Logger& logger ) : dm{mana
 }
 
 
-
+//chiama la funzione giusta per ogni comando
 void UserInterface::exeCommand( const std::string& command ){
 	std::istringstream iss(command);	//per flusso di input
 	std::string firstW;					//firstW cossisponde al comando (prima parola)
@@ -44,9 +44,26 @@ void UserInterface::exeCommand( const std::string& command ){
 //gestisce comandi con prima parola = "set"
 void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
 	
-	if( words.at( words.size()-1 ) == "on" ){												//"set ${DEVICENAME} on" _____________________________________
-	
-		std::string deviceName = "";				//imposta Device Name
+	if( words.at( words.size()-1 ) == "on" ){			//"set ${DEVICENAME} on"
+		handleSetOn(words, dm, lgr);
+	}
+	else if( words.at( words.size()-1 ) == "off" ){		//"set ${DEVICENAME} off"
+		handleSetOff(words, dm, lgr);
+	}
+	else if( words.at(0) == "time" ){					//"set time ${TIME}"
+		handleSetTime(words, dm, lgr);
+	}
+	else if( !words.empty() ){							//"set ${DEVICENAME}" ${START} [${STOP}]
+		handleSetTimers(words, dm, lgr);
+	}
+	else
+		lgr.log( "comando non valido\n" );
+}
+
+
+
+void handleSetOn( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){			//"set ${DEVICENAME} on" _____________________________________
+	std::string deviceName = "";				//imposta Device Name
 		for(int i=0; i < words.size()-1; i++){
 			deviceName = deviceName + words.at(i);
 			if(i != words.size()-2 )
@@ -65,10 +82,12 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 			else
 				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' acceso\n" );
 		}
-	}
-	else if( words.at( words.size()-1 ) == "off" ){											//"set ${DEVICENAME} off"_____________________________________
-	
-		std::string deviceName = "";				//imposta Device Name
+}
+
+
+
+void handleSetOff( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME} off"_____________________________________
+	std::string deviceName = "";				//imposta Device Name
 		for(int i=0; i < words.size()-1; i++){
 			deviceName = deviceName + words.at(i);
 			if(i != words.size()-2 )
@@ -82,9 +101,12 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 			else
 				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' spento\n" );
 		}
-	}
-	else if( words.at(0) == "time" ){														//"set time ${TIME}"__________________________________________
-		std::string newTime = words.at(1);
+}
+
+
+
+void handleSetTime( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set time ${TIME}"__________________________________________
+	std::string newTime = words.at(1);
 		std::vector<std::string> deviceList = dm.setTime( stringToTime( newTime ) );
 		
 		for(int i=0; i < deviceList.size(); i++){		//stampa lista Device che si accendono o spengono
@@ -99,10 +121,12 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 		}
 		
 	lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
-	
-	}
-	else if( !words.empty() ){															//"set ${DEVICENAME}" ${START} [${STOP}] _____________________
-			std::shared_ptr<Device> devPtr;
+}
+
+
+
+void HandleSetTimers( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME}" ${START} [${STOP}] _____________________
+	std::shared_ptr<Device> devPtr;
 			std::string deviceName;
 			//se penultima parola è un orario: set ${DEVICENAME} ${START} ${STOP}
 			if( containsNumber( words.at( words.size()-2 ) ) ){
@@ -136,12 +160,7 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 			lgr.log( " Impostato un timer per il dispositivo '" + deviceName );
 			lgr.log( "' dalle " + devRef.getProgrammedStart().toString(false));
 			lgr.log( " alle " + devRef.getProgrammedStop().toString(false) + "\n" );
-		
-		}
-		else
-			lgr.log( "comando non valido\n" );
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -238,7 +257,10 @@ void rmCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr )
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+//controlla se in una stringa sono presenti numeri
 bool containsNumber( const std::string& s ) {
 	return std::any_of(s.begin(), s.end(), ::isdigit);
 }

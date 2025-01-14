@@ -28,5 +28,10 @@ void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 void resetCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comandi con prima parola = "reset"
 void rmCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comandi con prima parola = "rmCommand"
 
+void handleSetOn( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );		//gestisce comando set {DEVICENAME} on
+void handleSetOff( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comando set {DEVICENAME} off
+void handleSetTime( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comando set {DEVICENAME} Time
+void HandleSetTimers( std::vector<std::string> words, DeviceManager& dm, Logger& lgr );	//gestisce comando set {DEVICENAME} timer1 timer2
+
 bool containsNumber( const std::string& s) ;		//controlla se in una stringa sono presenti numeri
 
