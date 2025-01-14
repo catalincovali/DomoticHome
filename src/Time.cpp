@@ -22,11 +22,6 @@ void Time::increment(void){
 		minutes = 0;
 		hours++;
 	}
-	
-	if( hours == 24 ){
-		hours = 0;
-		std::cout<< "giornata terminata\n";		//probabilmente da modificare
-	}	
 }
 
 
@@ -106,26 +101,6 @@ Time Time::operator -(const Time& t) const{
 	int m = totalMin % 60;
 	return Time(h, m);
 }
-
-
-//ELIMINARE SE NON SERVE A NESSUNO
-std::ostream& operator <<(std::ostream& out, const Time& t){
-	std::string h;
-	if( t.hours < 10 )
-		h = "0" + std::to_string(t.hours);
-	else
-		h = std::to_string(t.hours);
-
-	std::string m;
-	if( t.minutes < 10 )
-		m = "0" + std::to_string(t.minutes);
-	else
-		m = std::to_string(t.minutes);
-		
-	out << h + ":" + m;
-	return out;
-}
-
 
 
 Time stringToTime(std::string t){

@@ -42,9 +42,9 @@ void UserInterface::exeCommand( const std::string& command ){
 
 
 //gestisce comandi con prima parola = "set"
-void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){			//"set ${DEVICENAME} on" _____________________________________
+void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
 	
-	if( words.at( words.size()-1 ) == "on" ){
+	if( words.at( words.size()-1 ) == "on" ){												//"set ${DEVICENAME} on" _____________________________________
 	
 		std::string deviceName = "";				//imposta Device Name
 		for(int i=0; i < words.size()-1; i++){
@@ -77,8 +77,10 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 			
 		std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
 		if(devPtr != nullptr){
-			dm.turnOffDevice( devPtr );
-			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' si e' spento\n" );
+			if( dm.turnOffDevice( devPtr ) )		//dispositivo gia' spento
+				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' si e' spento\n" );
+			else
+				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' spento\n" );
 		}
 	}
 	else if( words.at(0) == "time" ){														//"set time ${TIME}"__________________________________________
@@ -86,19 +88,19 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 		std::vector<std::string> deviceList = dm.setTime( stringToTime( newTime ) );
 		
 		for(int i=0; i < deviceList.size(); i++){		//stampa lista Device che si accendono o spengono
-		if( deviceList.at(i) == "0"){
-			Time t = stringToTime( deviceList.at(++i) );
-			lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' spento\n" ); 
+			if( deviceList.at(i) == "0" ){
+				Time t = stringToTime( deviceList.at(++i) );
+				lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' spento\n" ); 
+			}
+			if( deviceList.at(i) == "1" ){
+				Time t = stringToTime( deviceList.at(++i) );
+				lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' acceso\n" ); 
+			}
 		}
-		else{
-			Time t = stringToTime( deviceList.at(++i) );
-			lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' acceso\n" ); 
-		}
-	}
 		
-		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
-	}
+	lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 	
+	}
 	else if( !words.empty() ){															//"set ${DEVICENAME}" ${START} [${STOP}] _____________________
 			std::shared_ptr<Device> devPtr;
 			std::string deviceName;
@@ -199,12 +201,12 @@ void resetCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lg
 	else if( words.at(0) == "timers" ){														//"reset timers"_____________________________________________
 		lgr.log( dm.getCurrentTime().toString() );
 		dm.resetTimers();
-		lgr.log( "i timers sono stati resettati\n" );
+		lgr.log( " i timers sono stati resettati\n" );
 	}
 	else if( words.at(0) == "all" ){														//"reset all"________________________________________________
 		dm.resetAll();
 		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
-		lgr.log( dm.getCurrentTime().toString() + "i timers sono stati resettati\n" );
+		lgr.log( dm.getCurrentTime().toString() + " i timers sono stati resettati\n" );
 	}
 	else
 		lgr.log( "comando non valido\n" );

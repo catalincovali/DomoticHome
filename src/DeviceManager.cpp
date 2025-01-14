@@ -170,10 +170,9 @@ std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
 
 // Turns off a device if it is on. Removes it from the active devices list
 // and updates the power consumption accordingly
-void DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
+bool DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
   if (!d->getIsOn())
-    return;
-  
+    return false;
 
   // Remove device from active devices list
   auto it = std::find(activeDevices.begin(), activeDevices.end(), d);
@@ -186,6 +185,7 @@ void DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
 
   DeviceManager::updateDeviceUsage(d);
   d->turnOff();
+  return true;
   
 }
 
@@ -248,14 +248,8 @@ std::vector<std::string> DeviceManager::setTime(Time time) {
         DeviceManager::turnOnDevice(d);
       }
  
-      if ( d->getIsProgrammedStopValid() && d->getProgrammedStop() == currentTime ) {
-        output.push_back("0");  // Indicating the device is being turned off
-        output.push_back(currentTime.toString(false));
-        output.push_back(d->getName());
-        DeviceManager::turnOffDevice(d);
-      }
-
-      if ( d->getIsStopValid() && d->getStop() == currentTime ) {
+      if (	(d->getIsProgrammedStopValid() && d->getProgrammedStop() == currentTime) || 
+      		(d->getIsStopValid() && d->getStop() == currentTime)	) {
         output.push_back("0");  // Indicating the device is being turned off  
         output.push_back(currentTime.toString(false));
         output.push_back(d->getName());

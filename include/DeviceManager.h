@@ -68,7 +68,7 @@ public:
   std::vector<std::string> turnOnDevice( std::shared_ptr<Device> d );
 
   // Turns off a device if it is currently on, and removes it from the list of active devices
-  void turnOffDevice( std::shared_ptr<Device> d );
+  bool turnOffDevice( std::shared_ptr<Device> d );
 
   //This is used to schedule when the device should start
   void setStartTimer( std::shared_ptr<Device> d, const Time& time );

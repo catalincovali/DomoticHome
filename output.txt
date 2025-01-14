@@ -912,3 +912,54 @@ Nello specifico:
 	- il dispositivo 'Televisore' ha consumato 0.000000kWh
 [04:00] il dispositivo 'Impianto fotovoltaico' ha attualmente consumato 6.000000 kWh
 [04:00] il dispositivo 'Lavatrice' ha attualmente prodotto 0.000000 kWh
+[00:00] Il dispositivo 'Lavatrice' si e' spento
+[00:00] Il dispositivo 'Lavatrice' si e' acceso
+[00:00] Il dispositivo 'Lavatrice' e' gia' spento
+[00:00] Il dispositivo 'Lavatrice' e' gia' spento
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 05:00 alle 06:50
+[00:00] Rimosso il timer dal dispositivo 'Lavatrice'
+[22:00] L’orario attuale è 22:00
+comando non valido!
+[22:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+[22:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 05:00 alle 06:50
+[00:00] L’orario attuale è 00:00
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 05:00 alle 06:50
+[00:00] L’orario attuale è 00:00
+[00:00]i timers sono stati resettati
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 05:00 alle 06:50
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[22:00] L’orario attuale è 22:00
+[00:00] L’orario attuale è 00:00
+[00:00]i timers sono stati resettati
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[22:00] L’orario attuale è 22:00
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[22:00] L’orario attuale è 22:00
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[22:00] L’orario attuale è 22:00
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 03:00 alle 04:50
+[03:00] Il dispositivo 'Lavatrice' si e' acceso
+[04:50] Il dispositivo 'Lavatrice' si e' spento
+[05:00] L’orario attuale è 05:00
+[00:00] Impostato un timer per il dispositivo 'Frigorifero' dalle 03:00 alle 05:00
+[03:00] Il dispositivo 'Frigorifero' si e' acceso
+[04:00] L’orario attuale è 04:00
+[04:00] Rimosso il timer dal dispositivo 'Frigorifero'
+[06:00] L’orario attuale è 06:00
+[06:00] il dispositivo 'Frigorifero' ha attualmente consumato 1.200000 kWh
+[22:00] L’orario attuale è 22:00
+[22:00] il dispositivo 'Frigorifero' ha attualmente consumato 7.600000 kWh
+comando non valido
+[22:00]i timers sono stati resettati
