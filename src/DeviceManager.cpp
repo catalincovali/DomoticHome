@@ -43,8 +43,10 @@ void DeviceManager::addDevice(std::shared_ptr<Device> d) {
 // devices are turned off according to the defined policy
 void DeviceManager::addToActiveDevices(std::shared_ptr<Device> d) {
   // If the device should remain plugged, add it at the beginning of the activeDevices list
-  if (d->getKeepDevicePlugged())
+  if (d->getKeepDevicePlugged()) {
     activeDevices.insert( activeDevices.begin(), d );
+    return;
+  }
   // Else add it at the end of active devices list
   activeDevices.push_back(d);
 }

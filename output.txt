@@ -1,0 +1,9 @@
+[00:00] Il dispositivo 'Lavatrice' si e' acceso
+[00:00] Il dispositivo 'Lavatrice' si e' acceso
+[00:00] Il dispositivo 'Frigorifero' si e' acceso
+[00:00] Il dispositivo 'Lavatrice' si e' spento
+[00:00] Il dispositivo 'Scaldabagno' si e' acceso
+[00:00] Il dispositivo 'Scaldabagno' si e' spento
+[00:00] Il dispositivo 'Lavatrice' si e' acceso
+[00:00] Il dispositivo 'Lavatrice' si e' spento
+[00:00] Il dispositivo 'Pompa di calore + termostato' si e' acceso
