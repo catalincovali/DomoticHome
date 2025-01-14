@@ -1,3 +1,4 @@
+//name:Gavrilovska Kristina
 #include "CyclicDevice.h"
 
 CyclicDevice::CyclicDevice(std::string n, double power, MyTime cycleDuration)
@@ -24,7 +25,6 @@ void CyclicDevice::setStart(const MyTime& st) {
     isStartValid=true;
     stop=start+cycleDuration.toMinutes();
     
-    //-------------
     if (stop < start){
       isStopValid=false;
       return;
