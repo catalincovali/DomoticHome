@@ -1,10 +1,11 @@
 FINAL PROJECT: DOMOTIC SYSTEM
 
 Course: Laboratorio di programmazione (B)
-Degree Program: Ingegneria Informatica 
+Degree Program: Ingegneria Informatica
 Academic Year: 2024-2025
 Group: CGB
 Group members: Bortolazzi Luca, Covali Catalin, Gavrilovska Kristina
+
 
 -Project Goal:
   The aim of the project is to create a Domotic System for managing and monitoring the energy consumption
