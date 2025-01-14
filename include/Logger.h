@@ -1,3 +1,5 @@
+//nome: Luca Bortolazzi
+
 #ifndef LOGGER_H
 #define LOGGER_H
 

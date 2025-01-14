@@ -1,3 +1,5 @@
+//nome: Luca Bortolazzi
+
 #include <iostream>
 #include "Logger.h"
 
@@ -8,7 +10,7 @@ Logger::Logger(const std::string& fileName){
 }
 
 
-Logger::~Logger() {
+Logger::~Logger() {		//chiude file log
         if (fileLog.is_open())
             fileLog.close();
 }

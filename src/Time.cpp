@@ -1,3 +1,5 @@
+//nome: Luca Bortolazzi
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -31,13 +33,13 @@ void Time::increment(void){
 //stampa [hh:mm] se withBrackets è true, e hh:mm se false
 std::string Time::toString(bool withBrackets) const{
 	std::string h;
-	if( hours < 10 )
+	if( hours < 10 )		//aggiunge 0 per formattazione hh:mm
 		h = "0" + std::to_string(hours);
 	else
 		h = std::to_string(hours);
 		
 	std::string m;
-	if( minutes < 10 )
+	if( minutes < 10 )		//aggiunge 0 per formattazione hh:mm
 		m = "0" + std::to_string(minutes);
 	else
 		m = std::to_string(minutes);

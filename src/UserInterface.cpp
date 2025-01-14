@@ -1,3 +1,5 @@
+//nome: Luca Bortolazzi
+
 #include <iostream>
 #include <vector>
 #include "UserInterface.h"
@@ -9,28 +11,28 @@
 
 UserInterface::UserInterface( DeviceManager& manager, Logger& logger ) : dm{manager}, lgr{logger} {
 	commandMap = {
-			{"set", [this]( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ) { setCommand(words, dm, lgr); }},
-		    {"show", [this]( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ) { showCommand(words, dm, lgr); }},
-		    {"reset", [this]( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ) { resetCommand(words, dm, lgr); }},
-		    {"rm", [this]( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ) { rmCommand(words, dm, lgr); }}
+			{"set", [this]( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ) { setCommand(words, dm, lgr); }},
+		    {"show", [this]( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ) { showCommand(words, dm, lgr); }},
+		    {"reset", [this]( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ) { resetCommand(words, dm, lgr); }},
+		    {"rm", [this]( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ) { rmCommand(words, dm, lgr); }}
 		};
 }
 
 
 //chiama la funzione giusta per ogni comando
 void UserInterface::exeCommand( const std::string& command ){
-	std::istringstream iss(command);	//per flusso di input
-	std::string firstW;					//firstW cossisponde al comando (prima parola)
-	iss >> firstW;						//divido il flusso in parole
+	std::istringstream iss(command);	//flusso di input
+	std::string firstW;					//firstW = comando (prima parola)
+	iss >> firstW;						//divisione flusso in parole
 	
 	auto iter = commandMap.find(firstW);	//iteratore nella mappa dei comandi
 	std::vector<std::string> words;
 	std::string word;
 
-	while (iss >> word)				//inserisce nel vettore di stringhe "words", le parole del comando
+	while ( iss >> word )				//inserisce nel vettore di stringhe "words", le parole in input
   	  words.push_back(word);
 	
-	if(iter != commandMap.end())			//non punta al primo elemento dopo l'ultimo
+	if( iter != commandMap.end() )			//non punta al primo elemento dopo l'ultimo
 		iter->second(words, dm, lgr);		//second(): accede al valore associato a chiave trovata (valore = function)
 	else
 		lgr.log( "comando non valido!\n" );
@@ -42,7 +44,7 @@ void UserInterface::exeCommand( const std::string& command ){
 
 
 //gestisce comandi con prima parola = "set"
-void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
+void setCommand( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ){
 	
 	if( words.at( words.size()-1 ) == "on" ){			//"set ${DEVICENAME} on"
 		handleSetOn(words, dm, lgr);
@@ -62,7 +64,7 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 
 
 
-void handleSetOn( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){			//"set ${DEVICENAME} on" _____________________
+void handleSetOn( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ){			//"set ${DEVICENAME} on" _____________________
 	std::string deviceName = "";				//imposta Device Name
 	for(int i=0; i < words.size()-1; i++){
 		deviceName = deviceName + words.at(i);
@@ -74,10 +76,11 @@ void handleSetOn( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 	if(devPtr != nullptr){
 		std::vector<std::string> v = dm.turnOnDevice( devPtr );
 			
-		if( !v.empty() ){
-			for(int i=0; i < v.size()-1; i++)
+		if( !v.empty() ){	//se dispositivo è spento
+			for( int i=0; i < v.size()-1; i++ )		//se soglia kW raggiunta vengono spenti gli ultimi device accesi
 				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(i) + "' si e' spento\n" );
 			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(v.size() -1) + "' si e' acceso\n" );
+			//l'ultimo elemento del vettore è quello da accendere, quelli prima (se presenti) da spegnere
 		}
 		else
 			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' acceso\n" );
@@ -86,7 +89,7 @@ void handleSetOn( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 
 
 
-void handleSetOff( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME} off"_____________________
+void handleSetOff( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME} off"_____________________
 	std::string deviceName = "";				//imposta Device Name
 	for(int i=0; i < words.size()-1; i++){
 		deviceName = deviceName + words.at(i);
@@ -96,7 +99,7 @@ void handleSetOff( std::vector<std::string> words, DeviceManager& dm, Logger& lg
 			
 	std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
 	if(devPtr != nullptr){
-		if( dm.turnOffDevice( devPtr ) )		//dispositivo gia' spento
+		if( dm.turnOffDevice( devPtr ) )		//se dispositivo gia' spento
 			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' si e' spento\n" );
 		else
 			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' spento\n" );
@@ -105,16 +108,17 @@ void handleSetOff( std::vector<std::string> words, DeviceManager& dm, Logger& lg
 
 
 
-void handleSetTime( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set time ${TIME}"__________________________
+void handleSetTime( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ){		//"set time ${TIME}"__________________________
 	std::string newTime = words.at(1);
 	std::vector<std::string> deviceList = dm.setTime( stringToTime( newTime ) );
+	//device list e' un vettore es: {0 o 1, tempo, nome Dispositivo, ...}
 		
 	for(int i=0; i < deviceList.size(); i++){		//stampa lista Device che si accendono o spengono
-		if( deviceList.at(i) == "0" ){
+		if( deviceList.at(i) == "0" ){				//se 0 il dispositivo si è spento
 			Time t = stringToTime( deviceList.at(++i) );
 			lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' spento\n" ); 
 		}
-		if( deviceList.at(i) == "1" ){
+		if( deviceList.at(i) == "1" ){				//se 1 il dispositivo si è acceso
 			Time t = stringToTime( deviceList.at(++i) );
 			lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' acceso\n" ); 
 		}
@@ -125,25 +129,25 @@ lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurr
 
 
 
-void handleSetTimers( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME}" ${START} [${STOP}] ___________
+void handleSetTimers( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME}" ${START} [${STOP}] ___________
 	std::shared_ptr<Device> devPtr;
 	std::string deviceName;
-	//se penultima parola è un orario: set ${DEVICENAME} ${START} ${STOP}
-	if( containsNumber( words.at( words.size()-2 ) ) ){
+
+	if( containsNumber( words.at( words.size()-2 ) ) ){		//se penultima parola è un orario: set ${DEVICENAME} ${START} ${STOP}
 		deviceName = "";
 			
 		for(int i=0; i < words.size()-2; i++){			//imposta Device Name
 			deviceName = deviceName + words.at(i);
 			if(i != words.size()-3 )
 				deviceName = deviceName + " ";
-		}	
+		}
 		devPtr = dm.findDeviceByName( deviceName );
 		if(devPtr != nullptr){
 			dm.setStartTimer( devPtr, stringToTime( words.at( words.size()-2 ) ) );
 			dm.setStopTimer( devPtr, stringToTime( words.at( words.size()-1 ) ) );
 		}
 	}
-	else{						//set ${DEVICENAME} ${START}
+	else{													//set ${DEVICENAME} ${START}
 		deviceName = "";		//imposta Device Name
 		for(int i=0; i < words.size()-1; i++){
 			deviceName = deviceName + words.at(i);
@@ -167,16 +171,17 @@ void handleSetTimers( std::vector<std::string> words, DeviceManager& dm, Logger&
 
 
 //gestisce comandi con prima parola = "show"
-void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
+void showCommand( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ){
 	
 	if( words.size() == 0 ){																//"show" _____________________________________
 		std::vector<std::string> v = dm.getAllDevicesUsage();
+		//v e' vettore tipo: {nomeDevice, consumo kWh, ...}
 		lgr.log( dm.getCurrentTime().toString() );
 		lgr.log( " Attualmente il sistema ha prodotto " + std::to_string( dm.getGeneratedPower() ) );
 		lgr.log( "kWh e consumato " + std::to_string( dm.getPowerUsage() ) + "kWh\n" );
 		lgr.log( "Nello specifico:\n" );
 		
-		for(int i=0; i<v.size(); i++){
+		for(int i=0; i<v.size(); i++){	//"Impianto fotovoltaico" produce, non consuma
 			if ( v.at(i) == "Impianto fotovoltaico" ){
 				lgr.log( "\t- il dispositivo '" + v.at(i));
 				lgr.log("' ha prodotto " + v.at(++i) + "kWh\n" );
@@ -198,7 +203,7 @@ void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 		std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
 		if(devPtr != nullptr){
 			lgr.log( dm.getCurrentTime().toString() );
-			if( deviceName == "Impianto fotovoltaico" )
+			if( deviceName == "Impianto fotovoltaico" )		//Impianto fotovoltaico produce kWh
 				lgr.log( " il dispositivo '" + deviceName + "' ha attualmente prodotto " + std::to_string( dm.getDeviceUsage( devPtr ) ) + " kWh\n" ); 
 			else	
 				lgr.log( " il dispositivo '" + deviceName + "' ha attualmente consumato " + std::to_string( dm.getDeviceUsage( devPtr ) ) + " kWh\n" ); 
@@ -211,7 +216,7 @@ void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 
 
 //gestisce comandi con prima parola = "reset"
-void resetCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
+void resetCommand( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ){
 	
 	if( words.at(0) == "time" ){															//"reset time"________________________________
 		dm.resetTime();
@@ -236,7 +241,7 @@ void resetCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lg
 
 
 //gestisce comandi con prima parola = "rm"
-void rmCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
+void rmCommand( std::vector<std::string>& words, DeviceManager& dm, Logger& lgr ){
 
 	if( words.size() != 0 ){																//"rm ${DeviceName}" _________________________
 		std::string deviceName = "";		//imposta Device Name

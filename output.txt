@@ -999,3 +999,26 @@ Nello specifico:
 comando non valido!
 comando non valido!
 comando non valido!
+[04:00] L’orario attuale è 04:00
+[04:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[07:00] L’orario attuale è 07:00
+[07:00] Il dispositivo 'Lavatrice' si e' acceso
+[07:00] Il dispositivo 'Lavastoviglie' si e' acceso
+[07:00] Il dispositivo 'Lavastoviglie' si e' spento
+[07:00] Il dispositivo 'Forno a microonde' si e' acceso
+[00:00] Attualmente il sistema ha prodotto 0.000000kWh e consumato 0.000000kWh
+Nello specifico:
+	- il dispositivo 'Impianto fotovoltaico' ha prodotto 0.000000kWh
+	- il dispositivo 'Lavatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Lavastoviglie' ha consumato 0.000000kWh
+	- il dispositivo 'Pompa di calore + termostato' ha consumato 0.000000kWh
+	- il dispositivo 'Tapparelle elettriche' ha consumato 0.000000kWh
+	- il dispositivo 'Scaldabagno' ha consumato 0.000000kWh
+	- il dispositivo 'Frigorifero' ha consumato 0.000000kWh
+	- il dispositivo 'Forno a microonde' ha consumato 0.000000kWh
+	- il dispositivo 'Asciugatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Televisore' ha consumato 0.000000kWh
+[00:00] il dispositivo 'Lavatrice' ha attualmente consumato 0.000000 kWh
+[00:00] il dispositivo 'Impianto fotovoltaico' ha attualmente prodotto 0.000000 kWh
