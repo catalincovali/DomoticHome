@@ -11,11 +11,11 @@ Group members: Bortolazzi Luca, Covali Catalin, Gavrilovska Kristina
   The aim of the project is to create a Domotic System for managing and monitoring the energy consumption
   of ideally household objects while keeps track of the current system time.
 
--Project Division:
+-Project Structure and Division of Work:
 
    -Bortolazzi Luca:
 
-     . Time.h/Time.cpp
+     . MyTime.h/MyTime.cpp
 
           ---
      . UserInterface.h/UserInterface.cpp
@@ -28,10 +28,19 @@ Group members: Bortolazzi Luca, Covali Catalin, Gavrilovska Kristina
    -Covali Catalin:
 
      . DeviceManager.h/DeviceManager.cpp
-          ---
+          The DeviceManager is responsible for managing all devices in the system, including
+          adding devices and controlling their states. It tracks energy consumption and manages
+          timers. Additionally, the DeviceManager enforces an energy policy. If necessary, 
+          it will automatically turn off the last device turned on to prevent overloading the system.
 
      . main.cpp
-          ---
+          The main.cpp file serves as the entry point for the Domotic System. It initializes the
+          devices (both manual and cyclic) with their respective energy usage and timers.
+          The DeviceManager is instantiated to manage these devices, while a Logger is set up
+          to record system events. The UserInterface handles user inputs, allowing interaction
+          with the system through a menu-driven console interface. Users can control devices,
+          set timers, and monitor the system's energy consumption. The program runs in a loop,
+          processing commands until the user chooses to quit.
 
 
    -Gavrilovska Kristina:
