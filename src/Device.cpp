@@ -19,7 +19,7 @@ void Device::turnOff() {
     if (!isOn) return;
         isOn = false;
   
-        isStartValid = false;
+        isStopValid = false;
 }
 
 bool Device::getIsOn() const {

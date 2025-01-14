@@ -44,7 +44,7 @@ int main() {
   
 
   // Set up logging functionality 
-  std::string outputFile = "../output1.txt";
+  std::string outputFile = "../output2.txt";
   Logger log(outputFile);
   
   // Create a UserInterface object to handle user commands

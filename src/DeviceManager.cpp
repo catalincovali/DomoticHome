@@ -146,8 +146,8 @@ std::vector<std::string> DeviceManager::getAllDevicesUsage() {
 
 
 // Turns on the device, turning off others if needed to stay within the power limit.
-// Returns a vector of names: the last is the turned-on device, others are turned off
-// and empty if already ON
+// Returns ex: { 0 , time , name , 0 , time , name , 1 , time , name}
+// 0 for tuned OFF
 std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
   std::vector<std::string> output;
 
@@ -157,14 +157,19 @@ std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
 
   // Turn off devices until the total power usage is within the limit
   if(d->getPowerConsumption() < 0)
-    while ( DeviceManager::sumDeviceKw() + fabs(d->getPowerConsumption()) > powerLimit)
+    while ( DeviceManager::sumDeviceKw() + fabs(d->getPowerConsumption()) > powerLimit) {
+      output.push_back("0");
+      output.push_back(currentTime.toString(false));
       output.push_back( DeviceManager::powerLimitPolicy() );// Turn off a device and save its name
+    }
 
   DeviceManager::addToActiveDevices(d);
   d->turnOn();
   d->setStart(currentTime);
 
   // Add the name of the newly turned-on device to the output vector
+  output.push_back("0");
+  output.push_back(currentTime.toString());
   output.push_back( d->getName() );
   return output;
 }
@@ -244,11 +249,12 @@ std::vector<std::string> DeviceManager::setTime(MyTime time) {
         output.push_back("1");  // Indicating the device is being turned on
         output.push_back(currentTime.toString(false));
         output.push_back(d->getName());
-        DeviceManager::turnOnDevice(d);
+        std::vector<std::string> turnOnResult = DeviceManager::turnOnDevice(d);
+        output.insert( output.end(), turnOnResult.begin(), turnOnResult.end() );
       }
  
       if (	(d->getIsProgrammedStopValid() && d->getProgrammedStop() == currentTime) || 
-      		(d->getIsStopValid() && d->getStop() == currentTime)	) {
+      		  (d->getIsStopValid() && d->getStop() == currentTime)	) {
         output.push_back("0");  // Indicating the device is being turned off  
         output.push_back(currentTime.toString(false));
         output.push_back(d->getName());
@@ -264,12 +270,15 @@ std::vector<std::string> DeviceManager::setTime(MyTime time) {
 
 
 
-// For debugging: resets the time and turns off all devices.
+// For debugging: resets the time, kWh and turns off all devices.
 void DeviceManager::resetTime(){
   for (auto& device : devices)
     device -> turnOff();
   MyTime time;  // time = [00:00]
   currentTime = time;
+  // reset kWh
+  for (auto& device : devices)
+    device->updatePowerConsumed( -device->getPowerConsumed() );
 }
 
 // For debugging: invalidates all device timers.
@@ -283,7 +292,4 @@ void DeviceManager::resetTimers(){
 void DeviceManager::resetAll(){
   DeviceManager::resetTime();
   DeviceManager::resetTimers();
-  // reset kWh
-  for (auto& device : devices)
-    device->updatePowerConsumed( -device->getPowerConsumed() );
 }

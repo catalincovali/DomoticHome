@@ -1,43 +1,39 @@
-[00:00] Il dispositivo 'Lavatrice' si e' acceso
-[00:00] Il dispositivo 'Lavastoviglie' si e' acceso
-[00:00] Il dispositivo 'Lavastoviglie' si e' spento
-[00:00] Il dispositivo 'Lavatrice' si e' spento
-[00:00] Il dispositivo 'Pompa di calore + termostato' si e' acceso
-[01:50] Il dispositivo 'Lavatrice' si e' spento
+[00:00] Attualmente il sistema ha prodotto 0.000000kWh e consumato 0.000000kWh
+Nello specifico:
+	- il dispositivo 'Impianto fotovoltaico' ha prodotto 0.000000kWh
+	- il dispositivo 'Lavatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Lavastoviglie' ha consumato 0.000000kWh
+	- il dispositivo 'Pompa di calore + termostato' ha consumato 0.000000kWh
+	- il dispositivo 'Tapparelle elettriche' ha consumato 0.000000kWh
+	- il dispositivo 'Scaldabagno' ha consumato 0.000000kWh
+	- il dispositivo 'Frigorifero' ha consumato 0.000000kWh
+	- il dispositivo 'Forno a microonde' ha consumato 0.000000kWh
+	- il dispositivo 'Asciugatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Televisore' ha consumato 0.000000kWh
+[00:00] Il dispositivo 'Impianto fotovoltaico' si e' acceso
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 01:00 alle 02:50
+[00:00] Impostato un timer per il dispositivo 'Lavastoviglie' dalle 02:00 alle 05:15
+[00:00] Il dispositivo 'Tapparelle elettriche' si e' acceso
+[00:01] Il dispositivo 'Tapparelle elettriche' si e' spento
+[01:00] Il dispositivo 'Lavatrice' si e' acceso
+[02:00] Il dispositivo 'Lavastoviglie' si e' acceso
+[02:50] Il dispositivo 'Lavatrice' si e' spento
 [03:00] L’orario attuale è 03:00
-[03:15] Il dispositivo 'Lavastoviglie' si e' spento
-[04:00] L’orario attuale è 04:00
-comando non valido!
-[00:00] Il dispositivo 'Lavatrice' si e' acceso
-[01:00] L’orario attuale è 01:00
-[01:00] Il dispositivo 'Lavatrice' si e' spento
-[01:50] Il dispositivo 'Lavatrice' si e' spento
-[04:00] L’orario attuale è 04:00
-[00:00] Il dispositivo 'Lavatrice' si e' acceso
-[00:00] Il dispositivo 'Lavastoviglie' si e' acceso
-[00:00] Il dispositivo 'Lavastoviglie' si e' spento
-[00:00] Il dispositivo 'Lavatrice' si e' spento
-[00:00] Il dispositivo 'Pompa di calore + termostato' si e' acceso
-[01:50] Il dispositivo 'Lavatrice' si e' spento
-[03:15] Il dispositivo 'Lavastoviglie' si e' spento
-[05:00] L’orario attuale è 05:00
-[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
-04:00 Il dispositivo 'Lavatrice' si e' acceso
-[04:30] L’orario attuale è 04:30
-[04:30] Il dispositivo 'Lavatrice' si e' spento
-05:50 Il dispositivo 'Lavatrice' si e' spento
-[07:00] L’orario attuale è 07:00
-[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
-[04:00] Il dispositivo 'Lavatrice' si e' acceso
-[05:00] L’orario attuale è 05:00
-[05:00] Il dispositivo 'Lavatrice' si e' spento
-[05:50] Il dispositivo 'Lavatrice' si e' spento
-[07:00] L’orario attuale è 07:00
-comando non valido!
-comando non valido!
-[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
-[04:00] Il dispositivo 'Lavatrice' si e' acceso
-[05:00] L’orario attuale è 05:00
-[05:00] Il dispositivo 'Lavatrice' si e' spento
-[05:50] Il dispositivo 'Lavatrice' si e' spento
-[07:00] L’orario attuale è 07:00
+[03:00] Attualmente il sistema ha prodotto 15.000000kWh e consumato 5.171667kWh
+Nello specifico:
+	- il dispositivo 'Impianto fotovoltaico' ha prodotto 4.500000kWh
+	- il dispositivo 'Lavatrice' ha consumato 3.666667kWh
+	- il dispositivo 'Lavastoviglie' ha consumato 1.500000kWh
+	- il dispositivo 'Pompa di calore + termostato' ha consumato 0.000000kWh
+	- il dispositivo 'Tapparelle elettriche' ha consumato 0.005000kWh
+	- il dispositivo 'Scaldabagno' ha consumato 0.000000kWh
+	- il dispositivo 'Frigorifero' ha consumato 0.000000kWh
+	- il dispositivo 'Forno a microonde' ha consumato 0.000000kWh
+	- il dispositivo 'Asciugatrice' ha consumato 0.000000kWh
+	- il dispositivo 'Televisore' ha consumato 0.000000kWh
+[03:00] Il dispositivo 'Pompa di calore + termostato' si e' acceso
+[05:15] Il dispositivo 'Lavastoviglie' si e' spento
+[08:00] L’orario attuale è 08:00
+[08:00] Il dispositivo 'Impianto fotovoltaico' si e' spento
+[08:00] Il dispositivo 'Pompa di calore + termostato' si e' spento
+[08:00] Il dispositivo 'Lavatrice' si e' acceso
