@@ -963,3 +963,7 @@ comando non valido!
 [22:00] il dispositivo 'Frigorifero' ha attualmente consumato 7.600000 kWh
 comando non valido
 [22:00]i timers sono stati resettati
+[04:00] L’orario attuale è 04:00
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[04:00] Il dispositivo 'Forno a microonde' e' gia' spento
+[04:00] Impostato un timer per il dispositivo 'Lavastoviglie' dalle 03:00 alle 06:15

@@ -14,7 +14,7 @@ Logger::~Logger() {
 }
 
 
-void Logger::log(const std::string output){
+void Logger::log(const std::string output){		//stampa stringa "output" su terminale e fileLog
 	std::cout << output;
 	fileLog << output;
 }

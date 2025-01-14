@@ -37,7 +37,7 @@ void UserInterface::exeCommand( const std::string& command ){
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -62,114 +62,114 @@ void setCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr 
 
 
 
-void handleSetOn( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){			//"set ${DEVICENAME} on" _____________________________________
+void handleSetOn( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){			//"set ${DEVICENAME} on" _____________________
 	std::string deviceName = "";				//imposta Device Name
-		for(int i=0; i < words.size()-1; i++){
+	for(int i=0; i < words.size()-1; i++){
+		deviceName = deviceName + words.at(i);
+		if(i != words.size()-2 )
+			deviceName = deviceName + " ";
+	}	
+		
+	std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
+	if(devPtr != nullptr){
+		std::vector<std::string> v = dm.turnOnDevice( devPtr );
+			
+		if( !v.empty() ){
+			for(int i=0; i < v.size()-1; i++)
+				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(i) + "' si e' spento\n" );
+			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(v.size() -1) + "' si e' acceso\n" );
+		}
+		else
+			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' acceso\n" );
+	}
+}
+
+
+
+void handleSetOff( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME} off"_____________________
+	std::string deviceName = "";				//imposta Device Name
+	for(int i=0; i < words.size()-1; i++){
+		deviceName = deviceName + words.at(i);
+		if(i != words.size()-2 )
+			deviceName = deviceName + " ";
+	}
+			
+	std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
+	if(devPtr != nullptr){
+		if( dm.turnOffDevice( devPtr ) )		//dispositivo gia' spento
+			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' si e' spento\n" );
+		else
+			lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' spento\n" );
+	}
+}
+
+
+
+void handleSetTime( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set time ${TIME}"__________________________
+	std::string newTime = words.at(1);
+	std::vector<std::string> deviceList = dm.setTime( stringToTime( newTime ) );
+		
+	for(int i=0; i < deviceList.size(); i++){		//stampa lista Device che si accendono o spengono
+		if( deviceList.at(i) == "0" ){
+			Time t = stringToTime( deviceList.at(++i) );
+			lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' spento\n" ); 
+		}
+		if( deviceList.at(i) == "1" ){
+			Time t = stringToTime( deviceList.at(++i) );
+			lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' acceso\n" ); 
+		}
+	}
+		
+lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
+}
+
+
+
+void handleSetTimers( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME}" ${START} [${STOP}] ___________
+	std::shared_ptr<Device> devPtr;
+	std::string deviceName;
+	//se penultima parola è un orario: set ${DEVICENAME} ${START} ${STOP}
+	if( containsNumber( words.at( words.size()-2 ) ) ){
+		deviceName = "";
+			
+		for(int i=0; i < words.size()-2; i++){			//imposta Device Name
 			deviceName = deviceName + words.at(i);
-			if(i != words.size()-2 )
+			if(i != words.size()-3 )
 				deviceName = deviceName + " ";
 		}	
-			
-		std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
+		devPtr = dm.findDeviceByName( deviceName );
 		if(devPtr != nullptr){
-			std::vector<std::string> v = dm.turnOnDevice( devPtr );
-			
-			if( !v.empty() ){
-				for(int i=0; i < v.size()-1; i++)
-					lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(i) + "' si e' spento\n" );
-				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + v.at(v.size() -1) + "' si e' acceso\n" );
-			}
-			else
-				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' acceso\n" );
+			dm.setStartTimer( devPtr, stringToTime( words.at( words.size()-2 ) ) );
+			dm.setStopTimer( devPtr, stringToTime( words.at( words.size()-1 ) ) );
 		}
-}
-
-
-
-void handleSetOff( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME} off"_____________________________________
-	std::string deviceName = "";				//imposta Device Name
+	}
+	else{						//set ${DEVICENAME} ${START}
+		deviceName = "";		//imposta Device Name
 		for(int i=0; i < words.size()-1; i++){
 			deviceName = deviceName + words.at(i);
 			if(i != words.size()-2 )
 				deviceName = deviceName + " ";
 		}
-			
-		std::shared_ptr<Device> devPtr = dm.findDeviceByName( deviceName );
-		if(devPtr != nullptr){
-			if( dm.turnOffDevice( devPtr ) )		//dispositivo gia' spento
-				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' si e' spento\n" );
-			else
-				lgr.log( dm.getCurrentTime().toString() + " Il dispositivo '" + deviceName + "' e' gia' spento\n" );
-		}
+		devPtr = dm.findDeviceByName( deviceName );
+		if(devPtr != nullptr)
+			dm.setStartTimer( devPtr, stringToTime( words.at( words.size()-1 ) ) );
+	}
+		
+	Device& devRef = *devPtr;
+	lgr.log( dm.getCurrentTime().toString() );
+	lgr.log( " Impostato un timer per il dispositivo '" + deviceName );
+	lgr.log( "' dalle " + devRef.getProgrammedStart().toString(false));
+	lgr.log( " alle " + devRef.getProgrammedStop().toString(false) + "\n" );
 }
 
 
-
-void handleSetTime( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set time ${TIME}"__________________________________________
-	std::string newTime = words.at(1);
-		std::vector<std::string> deviceList = dm.setTime( stringToTime( newTime ) );
-		
-		for(int i=0; i < deviceList.size(); i++){		//stampa lista Device che si accendono o spengono
-			if( deviceList.at(i) == "0" ){
-				Time t = stringToTime( deviceList.at(++i) );
-				lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' spento\n" ); 
-			}
-			if( deviceList.at(i) == "1" ){
-				Time t = stringToTime( deviceList.at(++i) );
-				lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' acceso\n" ); 
-			}
-		}
-		
-	lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
-}
-
-
-
-void HandleSetTimers( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){		//"set ${DEVICENAME}" ${START} [${STOP}] _____________________
-	std::shared_ptr<Device> devPtr;
-			std::string deviceName;
-			//se penultima parola è un orario: set ${DEVICENAME} ${START} ${STOP}
-			if( containsNumber( words.at( words.size()-2 ) ) ){
-				deviceName = "";
-			
-				for(int i=0; i < words.size()-2; i++){			//imposta Device Name
-					deviceName = deviceName + words.at(i);
-					if(i != words.size()-3 )
-						deviceName = deviceName + " ";
-				}	
-				devPtr = dm.findDeviceByName( deviceName );
-				if(devPtr != nullptr){
-					dm.setStartTimer( devPtr, stringToTime( words.at( words.size()-2 ) ) );
-					dm.setStopTimer( devPtr, stringToTime( words.at( words.size()-1 ) ) );
-				}
-			}
-			else{						//set ${DEVICENAME} ${START}
-				deviceName = "";		//imposta Device Name
-				for(int i=0; i < words.size()-1; i++){
-					deviceName = deviceName + words.at(i);
-					if(i != words.size()-2 )
-						deviceName = deviceName + " ";
-				}
-				devPtr = dm.findDeviceByName( deviceName );
-				if(devPtr != nullptr)
-					dm.setStartTimer( devPtr, stringToTime( words.at( words.size()-1 ) ) );
-			}
-		
-			Device& devRef = *devPtr;
-			lgr.log( dm.getCurrentTime().toString() );
-			lgr.log( " Impostato un timer per il dispositivo '" + deviceName );
-			lgr.log( "' dalle " + devRef.getProgrammedStart().toString(false));
-			lgr.log( " alle " + devRef.getProgrammedStop().toString(false) + "\n" );
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //gestisce comandi con prima parola = "show"
 void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
 	
-	if( words.size() == 0 ){																//"show" ___________________________________________________
+	if( words.size() == 0 ){																//"show" _____________________________________
 		std::vector<std::string> v = dm.getAllDevicesUsage();
 		lgr.log( dm.getCurrentTime().toString() );
 		lgr.log( " Attualmente il sistema ha prodotto " + std::to_string( dm.getGeneratedPower() ) );
@@ -187,7 +187,7 @@ void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 			}	
 		}
 	}
-	else{																					//"show ${DeviceName}"_____________________________________
+	else{																					//"show ${DeviceName}"________________________
 		std::string deviceName = "";	//imposta Device Name
 		for(int i=0; i < words.size(); i++){
 			deviceName = deviceName + words.at(i);
@@ -207,22 +207,22 @@ void showCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //gestisce comandi con prima parola = "reset"
 void resetCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
 	
-	if( words.at(0) == "time" ){															//"reset time"_______________________________________________
+	if( words.at(0) == "time" ){															//"reset time"________________________________
 		dm.resetTime();
 		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 	}
-	else if( words.at(0) == "timers" ){														//"reset timers"_____________________________________________
+	else if( words.at(0) == "timers" ){														//"reset timers"______________________________
 		lgr.log( dm.getCurrentTime().toString() );
 		dm.resetTimers();
 		lgr.log( " i timers sono stati resettati\n" );
 	}
-	else if( words.at(0) == "all" ){														//"reset all"________________________________________________
+	else if( words.at(0) == "all" ){														//"reset all"_________________________________
 		dm.resetAll();
 		lgr.log( dm.getCurrentTime().toString() + " L’orario attuale è " + dm.getCurrentTime().toString(false) + "\n" );
 		lgr.log( dm.getCurrentTime().toString() + " i timers sono stati resettati\n" );
@@ -232,13 +232,13 @@ void resetCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lg
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //gestisce comandi con prima parola = "rm"
 void rmCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr ){
 
-	if( words.size() != 0 ){																//"rm ${DeviceName}" ________________________________________
+	if( words.size() != 0 ){																//"rm ${DeviceName}" _________________________
 		std::string deviceName = "";		//imposta Device Name
 		for(int i=0; i < words.size(); i++){	
 			deviceName = deviceName + words.at(i);
@@ -257,7 +257,7 @@ void rmCommand( std::vector<std::string> words, DeviceManager& dm, Logger& lgr )
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //controlla se in una stringa sono presenti numeri

@@ -11,10 +11,9 @@ class Logger{
 		std::ofstream fileLog;
 		
 	public:
-	
-		Logger(const std::string& fileName);	//accetta file di testo
-		void log(const std::string output);	//stampa stringa "output" su terminale e fileLog
-		~Logger();
+		Logger(const std::string& fileName);	//accetta stringhe (file di testo)
+		void log(const std::string output);		//stampa stringa "output" su terminale e fileLog
+		~Logger();								//distruttore
 };
 
 #endif

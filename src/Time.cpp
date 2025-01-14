@@ -4,18 +4,21 @@
 #include <stdexcept>
 #include "Time.h"
 
+//se non forniti parametri imposta 00:00 di default
 Time::Time(int h, int m) : hours{h}, minutes{m} {
 	if(hours < 0 || hours > 23 || minutes < 0 || minutes > 59)
 		throw std::invalid_argument("orario non valido\n");
 }
 
 
+//costruttore di copia
 Time::Time(const Time& t) {
     hours = t.hours;
     minutes = t.minutes;
 }
 
 
+//incrementa tempo di un minuto
 void Time::increment(void){
 	minutes++;
 	if( minutes == 60 ){
@@ -25,7 +28,7 @@ void Time::increment(void){
 }
 
 
-
+//stampa [hh:mm] se withBrackets è true, e hh:mm se false
 std::string Time::toString(bool withBrackets) const{
 	std::string h;
 	if( hours < 10 )
@@ -81,6 +84,7 @@ bool Time::operator !=(const Time& t) const{
 
 
 
+//tempo "t" fornito in minuti
 Time Time::operator +(int t){
 	int totalMinutes = this->minutes + t;
 	int newHours = this->hours + (totalMinutes / 60);
@@ -103,6 +107,7 @@ Time Time::operator -(const Time& t) const{
 }
 
 
+//trasforma stringhe in oggetti time
 Time stringToTime(std::string t){
 	std::stringstream ss(t);
 	char separator;
