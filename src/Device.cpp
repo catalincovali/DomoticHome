@@ -1,3 +1,4 @@
+//name:Gavrilovska Kristina
 #include "Device.h"
 #include <stdexcept> 
 
@@ -18,7 +19,7 @@ void Device::turnOff() {
     if (!isOn) return;
         isOn = false;
   
-        isStartValid = false; //--------
+        isStartValid = false;
 }
 
 bool Device::getIsOn() const {
