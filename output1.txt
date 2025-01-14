@@ -13,3 +13,31 @@ comando non valido!
 [01:00] Il dispositivo 'Lavatrice' si e' spento
 [01:50] Il dispositivo 'Lavatrice' si e' spento
 [04:00] L’orario attuale è 04:00
+[00:00] Il dispositivo 'Lavatrice' si e' acceso
+[00:00] Il dispositivo 'Lavastoviglie' si e' acceso
+[00:00] Il dispositivo 'Lavastoviglie' si e' spento
+[00:00] Il dispositivo 'Lavatrice' si e' spento
+[00:00] Il dispositivo 'Pompa di calore + termostato' si e' acceso
+[01:50] Il dispositivo 'Lavatrice' si e' spento
+[03:15] Il dispositivo 'Lavastoviglie' si e' spento
+[05:00] L’orario attuale è 05:00
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+04:00 Il dispositivo 'Lavatrice' si e' acceso
+[04:30] L’orario attuale è 04:30
+[04:30] Il dispositivo 'Lavatrice' si e' spento
+05:50 Il dispositivo 'Lavatrice' si e' spento
+[07:00] L’orario attuale è 07:00
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[05:00] L’orario attuale è 05:00
+[05:00] Il dispositivo 'Lavatrice' si e' spento
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[07:00] L’orario attuale è 07:00
+comando non valido!
+comando non valido!
+[00:00] Impostato un timer per il dispositivo 'Lavatrice' dalle 04:00 alle 05:50
+[04:00] Il dispositivo 'Lavatrice' si e' acceso
+[05:00] L’orario attuale è 05:00
+[05:00] Il dispositivo 'Lavatrice' si e' spento
+[05:50] Il dispositivo 'Lavatrice' si e' spento
+[07:00] L’orario attuale è 07:00

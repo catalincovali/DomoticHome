@@ -16,13 +16,20 @@ Group members: Bortolazzi Luca, Covali Catalin, Gavrilovska Kristina
    -Bortolazzi Luca:
 
      . MyTime.h/MyTime.cpp
-
-          ---
+          The MyTime class manages all device timers and the "house clock." A MyTime object consists of two
+          variables: "minutes" and "hours." The class includes operator overloads to perform various
+          operations between MyTime objects, as well as methods for converting the time into a string or the
+          total number of minutes.
+          
      . UserInterface.h/UserInterface.cpp
-          ---
+          The UserInterface class handles the commands provided by user input. Once a command is identified, 
+          methods from the DeviceManager class are used to manage the various devices. Strings are then 
+          generated, and the Logger class's "log" function is called to print the output.
 
      . Logger.h/Logger.cpp
-          ---
+          The Logger class is responsible for printing output to both the terminal and a log file based on the 	
+          commands entered by the user. The log function, used by the UserInterface class, handles this 
+          process.
 
 
    -Covali Catalin:
