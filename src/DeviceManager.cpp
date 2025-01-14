@@ -14,7 +14,7 @@
 
 // Constructor that initializes the power limit and current power usage.
 // If maxPower is not provided, the default value is 3.5 kW.
-DeviceManager::DeviceManager(double maxPower) : powerLimit{maxPower}, powerUsage{0.0} {
+DeviceManager::DeviceManager(double maxPower) : powerLimit{maxPower} {
   if (maxPower < 0)
     throw std::invalid_argument("[ERROR] Maximum power limit cannot be negative.");
 }
@@ -23,7 +23,10 @@ DeviceManager::DeviceManager(double maxPower) : powerLimit{maxPower}, powerUsage
 
 // Adds a device to the list if its power consumption is within limits.
 void DeviceManager::addDevice(std::shared_ptr<Device> d) {
-  if(d->getPowerConsumption() < 0 && fabs(d->getPowerConsumption()) > powerLimit) {
+  // Check if the device's power consumption (negated) exceeds the maximum allowable power limit.
+  // getPowerConsumption() returns a negative value if the device consumes power, 
+  // and a positive value if it generates power. 
+  if(- d->getPowerConsumption() > powerLimit) {
     std::cerr << "[ERROR] Unable to add device '" << d->getName()
               << "'. Power consumption (" << d->getPowerConsumption()
               << " kW) exceeds the maximum allowable limit of " << powerLimit
@@ -118,7 +121,7 @@ double DeviceManager::sumDeviceKw() {
 
 // Returns the total power consumption of active devices
 double DeviceManager::getPowerUsage() {
-  powerUsage = 0.0;
+  double powerUsage = 0.0;
 
   for (auto& device : devices)
     if (device->getPowerConsumption() < 0)
@@ -126,6 +129,7 @@ double DeviceManager::getPowerUsage() {
 
   return powerUsage;
 }
+
 
 
 // Returns a vector of device names and their corresponding power usage.
@@ -142,7 +146,8 @@ std::vector<std::string> DeviceManager::getAllDevicesUsage() {
 
 
 // Turns on the device, turning off others if needed to stay within the power limit.
-// Returns a vector of names: the last is the turned-on device, others are turned off.
+// Returns a vector of names: the last is the turned-on device, others are turned off
+// and empty if already ON
 std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
   std::vector<std::string> output;
 
@@ -166,10 +171,9 @@ std::vector<std::string> DeviceManager::turnOnDevice(std::shared_ptr<Device> d){
 
 
 
-
-
 // Turns off a device if it is on. Removes it from the active devices list
 // and updates the power consumption accordingly
+// Returns false if already OFF
 bool DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
   if (!d->getIsOn())
     return false;
@@ -195,19 +199,14 @@ void DeviceManager::setStartTimer(std::shared_ptr<Device> d, const Time& time) {
   d->setProgrammedStart(time);
 }
 
-
-
 void DeviceManager::setStopTimer(std::shared_ptr<Device> d, const Time& time) {
   d->setProgrammedStop(time);
 }
-
 
 // Invalidating any start or stop times
 void DeviceManager::removeTimer(std::shared_ptr<Device> d) {
   d->invalidateProgram();
 }
-
-
 
 
 
@@ -262,7 +261,6 @@ std::vector<std::string> DeviceManager::setTime(Time time) {
 
   return output;
 }
-
 
 
 

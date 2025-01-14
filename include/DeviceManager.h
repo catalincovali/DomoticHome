@@ -18,9 +18,8 @@ private:
 
   std::vector< std::shared_ptr<Device> > devices;         // Registered devices
   std::vector< std::shared_ptr<Device> > activeDevices;   // Active devcies, needed for power limit policy
-  double powerLimit;        // Maximum power that can be absorbed from the grid (3.5 kW)
-  double powerUsage;        // Current power usage (kWh)
-  Time currentTime;    // Simulated current time (initialized to 00:00)
+  double powerLimit;    // Maximum power that can be absorbed from the grid (3.5 kW)
+  Time currentTime;     // Simulated current time (initialized to 00:00)
 
   // Adds a device to the active devices list
   void addToActiveDevices(std::shared_ptr<Device> d);
@@ -34,11 +33,9 @@ private:
 
 public:
 
-
   // Constructor initializes the power limit, and power usage
   // If maxPower is not provided, it defaults to 3.5 kW
   DeviceManager(double maxPower=3.5);
-
 
   // Adds a device to the list of devices managed by this class
   // if its power consumption is within limits
@@ -61,7 +58,6 @@ public:
 
   // Returns a vector of device names and their corresponding power usage. {name1, kwh1, name2, kWh2 ... }
   std::vector<std::string> getAllDevicesUsage();
-
 
   // Turns on the device, turning off others if needed to stay within the power limit.
   // Returns a vector of names: the last is the turned-on device, others were turned off.

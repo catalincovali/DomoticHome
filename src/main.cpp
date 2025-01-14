@@ -11,14 +11,14 @@
 
 
 int main() {
+  Time deviceCycle2(1,50);  // 1 hour and 50 minutes for Lavatrice
+  Time deviceCycle3(3,15);  // 3 hours and 15 minutes for Lavastoviglie
+  Time deviceCycle5(0,1);   // 1 minute for Tapparelle elettriche
+  Time deviceCycle8(0,2);   // 2 minutes for Forno a microonde
+  Time deviceCycle9(1,0);   // 1 hour for Asciugatrice
+  Time deviceCycle10(1,0);  // 1 hour for Televisore
 
-  Time deviceCycle2(1,50);
-  Time deviceCycle3(3,15);
-  Time deviceCycle5(0,1);
-  Time deviceCycle8(0,2);
-  Time deviceCycle9(1,0);
-  Time deviceCycle10(1,0);
-
+  // Create devices
   std::shared_ptr<Device> device1 = std::make_shared<ManualDevice>("Impianto fotovoltaico", 1.5);
   std::shared_ptr<Device> device2 = std::make_shared<CyclicDevice>("Lavatrice", -2.0, deviceCycle2);
   std::shared_ptr<Device> device3 = std::make_shared<CyclicDevice>("Lavastoviglie", -1.5, deviceCycle3);
@@ -52,32 +52,31 @@ int main() {
 
 
 
-
-
+  std::cout<<"\n\n";
+  std::cout<<"██████╗  ██████╗ ███╗   ███╗ ██████╗ ████████╗██╗ ██████╗    ██╗  ██╗ ██████╗ ███╗   ███╗███████╗\n";
+  std::cout<<"██╔══██╗██╔═══██╗████╗ ████║██╔═══██╗╚══██╔══╝██║██╔════╝    ██║  ██║██╔═══██╗████╗ ████║██╔════╝\n";
+  std::cout<<"██║  ██║██║   ██║██╔████╔██║██║   ██║   ██║   ██║██║         ███████║██║   ██║██╔████╔██║█████╗  \n";
+  std::cout<<"██║  ██║██║   ██║██║╚██╔╝██║██║   ██║   ██║   ██║██║         ██╔══██║██║   ██║██║╚██╔╝██║██╔══╝  \n";
+  std::cout<<"██████╔╝╚██████╔╝██║ ╚═╝ ██║╚██████╔╝   ██║   ██║╚██████╗    ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗\n";
+  std::cout<<"╚═════╝  ╚═════╝ ╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚═╝ ╚═════╝    ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝\n";
+                                                                                                 
 
   std::cout<<"\n";
-  std::cout<<"        ____                        __  _      __  __                   \n";
-  std::cout<<"       / __ \\____  ____ ___  ____  / /_(_)____/ / / /___  ____ ___  ___\n"; 
-  std::cout<<"      / / / / __ \\/ __ `__ \\/ __ \\/ __/ / ___/ /_/ / __ \\/ __ `__ \\/ _ \\\n";
-  std::cout<<"     / /_/ / /_/ / / / / / / /_/ / /_/ / /__/ __  / /_/ / / / / / /  __/\n";
-  std::cout<<"    /_____/\\____/_/ /_/ /_/\\____/\\__/_/\\___/_/ /_/\\____/_/ /_/ /_/\\___/\n\n"; 
-
-  std::cout<<"\n\n";
-  std::cout<<"+-----------------------------------------+-------------------------------------+\n";
-  std::cout<<"|  MENU: ('Q' to quit)                    |   DEVICES:                          |\n";
-  std::cout<<"|                                         |                                     |\n";
-  std::cout<<"|  - set ${DEVICENAME} on                 |   - Impianto fotovoltaico           |\n";
-  std::cout<<"|  - set ${DEVICENAME} off                |   - Lavatrice                       |\n";
-  std::cout<<"|  - set ${DEVICENAME} ${START}           |   - Lavastoviglie                   |\n";
-  std::cout<<"|  - set ${DEVICENAME} ${START} ${STOP}   |   - Pompa di calore + termostato    |\n";
-  std::cout<<"|  - rm ${DEVICENAME}                     |   - Tapparelle elettriche           |\n";
-  std::cout<<"|  - show                                 |   - Scaldabagno                     |\n";
-  std::cout<<"|  - show ${DEVICENAME}                   |   - Frigorifero                     |\n";
-  std::cout<<"|  - set time ${TIME}                     |   - Forno a microonde               |\n";
-  std::cout<<"|  - reset time                           |   - Asciugtrice                     |\n";
-  std::cout<<"|  - reset times                          |   - Televisore                      |\n";
-  std::cout<<"|  - reset all                            |                                     |\n";
-  std::cout<<"+-----------------------------------------+-------------------------------------+\n\n";
+  std::cout<<"╔═════════════════════════════════════════╦═════════════════════════════════════════════╗\n";
+  std::cout<<"║  MENU: ('Q' to quit)                    ║   DEVICES:                                  ║\n";
+  std::cout<<"╠═════════════════════════════════════════╬═════════════════════════════════════════════╣\n";
+  std::cout<<"║  - set ${DEVICENAME} on                 ║   - [  M  ] Impianto fotovoltaico           ║\n";
+  std::cout<<"║  - set ${DEVICENAME} off                ║   - [01:50] Lavatrice                       ║\n";
+  std::cout<<"║  - set ${DEVICENAME} ${START}           ║   - [03:15] Lavastoviglie                   ║\n";
+  std::cout<<"║  - set ${DEVICENAME} ${START} ${STOP}   ║   - [  M  ] Pompa di calore + termostato    ║\n";
+  std::cout<<"║  - rm ${DEVICENAME}                     ║   - [00:01] Tapparelle elettriche           ║\n";
+  std::cout<<"║  - show                                 ║   - [  M  ] Scaldabagno                     ║\n";
+  std::cout<<"║  - show ${DEVICENAME}                   ║   - [  M  ] Frigorifero                     ║\n";
+  std::cout<<"║  - set time ${TIME}                     ║   - [00:02] Forno a microonde               ║\n";
+  std::cout<<"║  - reset time                           ║   - [01:00] Asciugtrice                     ║\n";
+  std::cout<<"║  - reset timers                         ║   - [01:00] Televisore                      ║\n";
+  std::cout<<"║  - reset all                            ║                                             ║\n";
+  std::cout<<"╚═════════════════════════════════════════╩═════════════════════════════════════════════╝\n\n";
 
   
   std::string prompt = "";
