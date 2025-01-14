@@ -8,7 +8,7 @@
 #include <algorithm>
 #include "DeviceManager.h"
 #include "Device.h"
-#include "Time.h"
+#include "MyTime.h"
 
 
 
@@ -75,7 +75,7 @@ void DeviceManager::updateDeviceUsage(std::shared_ptr<Device> d) {
     return;
 
   // Calculate the time the device has been on
-  Time timeBeingON = currentTime - d->getStart();
+  MyTime timeBeingON = currentTime - d->getStart();
   // Convert time to hours and calculate the power consumed in kWh
   double newValue = static_cast<double>(timeBeingON.toMinutes()) / 60 * d->getPowerConsumption();
 
@@ -195,11 +195,11 @@ bool DeviceManager::turnOffDevice(std::shared_ptr<Device> d){
 
 
 
-void DeviceManager::setStartTimer(std::shared_ptr<Device> d, const Time& time) {
+void DeviceManager::setStartTimer(std::shared_ptr<Device> d, const MyTime& time) {
   d->setProgrammedStart(time);
 }
 
-void DeviceManager::setStopTimer(std::shared_ptr<Device> d, const Time& time) {
+void DeviceManager::setStopTimer(std::shared_ptr<Device> d, const MyTime& time) {
   d->setProgrammedStop(time);
 }
 
@@ -228,7 +228,7 @@ std::shared_ptr<Device> DeviceManager::findDeviceByName(const std::string& name)
 // Returns a vcetor with:
 // - A string representing the action ("1" for turning on, "0" for turning off).
 // - the name of the device that was turned on or off.
-std::vector<std::string> DeviceManager::setTime(Time time) {
+std::vector<std::string> DeviceManager::setTime(MyTime time) {
   if(time < currentTime)
     throw std::invalid_argument("[ERROR] Time cannot go backwards");
   
@@ -268,7 +268,7 @@ std::vector<std::string> DeviceManager::setTime(Time time) {
 void DeviceManager::resetTime(){
   for (auto& device : devices)
     device -> turnOff();
-  Time time;  // time = [00:00]
+  MyTime time;  // time = [00:00]
   currentTime = time;
 }
 

@@ -5,18 +5,18 @@
 #include "CyclicDevice.h"
 #include "ManualDevice.h"
 #include "DeviceManager.h"
-#include "Time.h"
+#include "MyTime.h"
 #include "Logger.h"
 #include "UserInterface.h"
 
 
 int main() {
-  Time deviceCycle2(1,50);  // 1 hour and 50 minutes for Lavatrice
-  Time deviceCycle3(3,15);  // 3 hours and 15 minutes for Lavastoviglie
-  Time deviceCycle5(0,1);   // 1 minute for Tapparelle elettriche
-  Time deviceCycle8(0,2);   // 2 minutes for Forno a microonde
-  Time deviceCycle9(1,0);   // 1 hour for Asciugatrice
-  Time deviceCycle10(1,0);  // 1 hour for Televisore
+  MyTime deviceCycle2(1,50);  // 1 hour and 50 minutes for Lavatrice
+  MyTime deviceCycle3(3,15);  // 3 hours and 15 minutes for Lavastoviglie
+  MyTime deviceCycle5(0,1);   // 1 minute for Tapparelle elettriche
+  MyTime deviceCycle8(0,2);   // 2 minutes for Forno a microonde
+  MyTime deviceCycle9(1,0);   // 1 hour for Asciugatrice
+  MyTime deviceCycle10(1,0);  // 1 hour for Televisore
 
   // Create devices
   std::shared_ptr<Device> device1 = std::make_shared<ManualDevice>("Impianto fotovoltaico", 1.5);

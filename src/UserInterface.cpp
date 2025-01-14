@@ -5,7 +5,7 @@
 #include "UserInterface.h"
 #include "DeviceManager.h"
 #include "Device.h"
-#include "Time.h"
+#include "MyTime.h"
 #include "Logger.h"
 
 
@@ -115,11 +115,11 @@ void handleSetTime( std::vector<std::string>& words, DeviceManager& dm, Logger& 
 		
 	for(int i=0; i < deviceList.size(); i++){		//stampa lista Device che si accendono o spengono
 		if( deviceList.at(i) == "0" ){				//se 0 il dispositivo si è spento
-			Time t = stringToTime( deviceList.at(++i) );
+			MyTime t = stringToTime( deviceList.at(++i) );
 			lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' spento\n" ); 
 		}
 		if( deviceList.at(i) == "1" ){				//se 1 il dispositivo si è acceso
-			Time t = stringToTime( deviceList.at(++i) );
+			MyTime t = stringToTime( deviceList.at(++i) );
 			lgr.log( t.toString() + " Il dispositivo '" + deviceList.at(++i) + "' si e' acceso\n" ); 
 		}
 	}

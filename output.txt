@@ -1022,3 +1022,6 @@ Nello specifico:
 	- il dispositivo 'Televisore' ha consumato 0.000000kWh
 [00:00] il dispositivo 'Lavatrice' ha attualmente consumato 0.000000 kWh
 [00:00] il dispositivo 'Impianto fotovoltaico' ha attualmente prodotto 0.000000 kWh
+[03:00] L’orario attuale è 03:00
+comando non valido!
+comando non valido!

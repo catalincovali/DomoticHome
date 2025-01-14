@@ -1,10 +1,10 @@
 #include "CyclicDevice.h"
 
-CyclicDevice::CyclicDevice(std::string n, double power, Time cycleDuration)
+CyclicDevice::CyclicDevice(std::string n, double power, MyTime cycleDuration)
     : Device(n, power), cycleDuration(cycleDuration) {
 }
 
-void CyclicDevice::setProgrammedStart(const Time& time) {
+void CyclicDevice::setProgrammedStart(const MyTime& time) {
     programmedStart = time;
     isProgrammedStartValid=true;
     programmedStop=programmedStart+cycleDuration.toMinutes();
@@ -15,11 +15,11 @@ void CyclicDevice::setProgrammedStart(const Time& time) {
     isProgrammedStopValid=true;
 }
 
-void CyclicDevice::setProgrammedStop(const Time& time){
+void CyclicDevice::setProgrammedStop(const MyTime& time){
     return;
 }
 
-void CyclicDevice::setStart(const Time& st) {
+void CyclicDevice::setStart(const MyTime& st) {
     start=st;
     isStartValid=true;
     stop=start+cycleDuration.toMinutes();

@@ -45,12 +45,12 @@ double Device::getPowerConsumption() const {
     return powerConsumption;
 }
 
-void Device::setProgrammedStart(const Time& time){
+void Device::setProgrammedStart(const MyTime& time){
     programmedStart = time;   
     isProgrammedStartValid=true;
 }
 
-void Device::setProgrammedStop(const Time& t){
+void Device::setProgrammedStop(const MyTime& t){
     if(programmedStart<t)  {
              programmedStop = t;
              isProgrammedStopValid=true;
@@ -61,11 +61,11 @@ void Device::setProgrammedStop(const Time& t){
     }
 }
 
-Time Device::getProgrammedStart() const{
+MyTime Device::getProgrammedStart() const{
     return programmedStart;
 }
 
-Time Device::getProgrammedStop() const{
+MyTime Device::getProgrammedStop() const{
     return programmedStop;
 }
 
@@ -91,11 +91,11 @@ bool Device::getIsProgrammedStartValid() const{
     return isProgrammedStartValid;
 }
 
-Time Device::getStart() const{
+MyTime Device::getStart() const{
    return start;
 }
 
-Time Device::getStop() const{
+MyTime Device::getStop() const{
    return stop;
 }
 
@@ -107,7 +107,7 @@ bool Device::getIsStopValid() const{
    return isStopValid;
 }
 
-void Device::setStart(const Time& st){ 
+void Device::setStart(const MyTime& st){ 
     start=st;
     isStartValid=true;
 }

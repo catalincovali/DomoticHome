@@ -1,7 +1,7 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 #include <string>
-#include "Time.h"
+#include "MyTime.h"
 
 class Device {
 protected:
@@ -12,14 +12,14 @@ protected:
     double powerConsumed;           // energy consumed
     bool isOn;                      // reports whether the device is turned on or not
     bool keepDevicePlugged;         // reports which devices must remain on
-    Time programmedStart;           // programmed Time when the device turns on
-    Time programmedStop;            // programmed Time when the device turns off
+    MyTime programmedStart;           // programmed Time when the device turns on
+    MyTime programmedStop;            // programmed Time when the device turns off
     bool isProgrammedStartValid;    //reports if programmedStart is valid
     bool isProgrammedStopValid;     //reports if programmedStop is valid
     bool isStartValid=false;        //reports whether the start time is valid
     bool isStopValid=false;         //reports whether the end time is valid
-    Time start;                     // Start time
-    Time stop;                      // End time
+    MyTime start;                     // Start time
+    MyTime stop;                      // End time
 
 public:
     Device(std::string n, double power);                //constructor
@@ -37,10 +37,10 @@ public:
 
     double getPowerConsumption() const;                 //getter function of powerConsumption
 
-    virtual void setProgrammedStart(const Time& time);  //set function of programmedStart
-    virtual void setProgrammedStop(const Time& t);      //set function of programmedStop
-    Time getProgrammedStart() const;                    //getter function of programmedStart
-    Time getProgrammedStop() const;                     //getter function of programmedStop
+    virtual void setProgrammedStart(const MyTime& time);  //set function of programmedStart
+    virtual void setProgrammedStop(const MyTime& t);      //set function of programmedStop
+    MyTime getProgrammedStart() const;                    //getter function of programmedStart
+    MyTime getProgrammedStop() const;                     //getter function of programmedStop
 
     int getId() const;                                  //getter function of device's id
 
@@ -50,10 +50,10 @@ public:
     bool getIsProgrammedStartValid() const;             //getter function of isProgrammedStartValid
     bool getIsProgrammedStopValid() const;              //getter function of isProgrammedStopValid
 
-    Time getStart() const;                              //getter function of start
-    Time getStop() const;                               //getter function of stop
+    MyTime getStart() const;                              //getter function of start
+    MyTime getStop() const;                               //getter function of stop
     bool getIsStartValid() const;                       //getter function of isStartValid
     bool getIsStopValid() const;                        //getter function of isStopValid
-    virtual void setStart(const Time& st);              //set function of start
+    virtual void setStart(const MyTime& st);              //set function of start
 };
 #endif // DEVICE_H
