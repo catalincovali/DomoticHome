@@ -1,3 +1,4 @@
+//name:Gavrilovska Kristina
 #ifndef CYCLICDEVICE_H
 #define CYCLICDEVICE_H
 #include "Device.h"
